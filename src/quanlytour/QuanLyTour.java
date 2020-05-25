@@ -15,7 +15,7 @@ public class QuanLyTour {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("nghia1");
+        System.out.println("nghia1nghia");
     }
     
 }
