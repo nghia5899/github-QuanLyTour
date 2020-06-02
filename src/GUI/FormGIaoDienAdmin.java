@@ -41,6 +41,11 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton1.setText("Quản lý Tour");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton2.setText("Quản lý tài khoản");
@@ -131,6 +136,12 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
         formDangNhap.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        FormQuanLyTour formQuanLyTour = new FormQuanLyTour();
+        formQuanLyTour.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
