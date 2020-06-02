@@ -18,19 +18,25 @@ public class Tour {
     String diemxuatphat;
     String thoigiantour;
     int giatour;
-    String lichtrinh;
+    String diadiem;
+    String diemdulich;
+    ArrayList<LichTrinh> lichtrinh;
     String dichvu;
-    ArrayList<Anh> listanh;
+    int khuyenmai;
+    String anhchinh;
 
-    public Tour(String matour, String tentour, String diemxuatphat, String thoigiantour, int giatour, String lichtrinh, String dichvu, ArrayList<Anh> listanh) {
+    public Tour(String matour, String tentour, String diemxuatphat, String diadiem,String diemdulich, String dichvu, String thoigiantour, int giatour, ArrayList<LichTrinh> lichtrinh, int khuyenmai, String anhchinh) {
         this.matour = matour;
         this.tentour = tentour;
         this.diemxuatphat = diemxuatphat;
         this.thoigiantour = thoigiantour;
         this.giatour = giatour;
+        this.diemdulich = diemdulich;
+        this.diadiem = diadiem;
         this.lichtrinh = lichtrinh;
         this.dichvu = dichvu;
-        this.listanh = listanh;
+        this.khuyenmai = khuyenmai;
+        this.anhchinh = anhchinh;
     }
 
     public String getMatour() {
@@ -73,11 +79,19 @@ public class Tour {
         this.giatour = giatour;
     }
 
-    public String getLichtrinh() {
+    public String getDiadiem() {
+        return diadiem;
+    }
+
+    public void setDiadiem(String diadiem) {
+        this.diadiem = diadiem;
+    }
+
+    public ArrayList<LichTrinh> getLichtrinh() {
         return lichtrinh;
     }
 
-    public void setLichtrinh(String lichtrinh) {
+    public void setLichtrinh(ArrayList<LichTrinh> lichtrinh) {
         this.lichtrinh = lichtrinh;
     }
 
@@ -89,13 +103,29 @@ public class Tour {
         this.dichvu = dichvu;
     }
 
-    public ArrayList<Anh> getListanh() {
-        return listanh;
+    public int getKhuyenmai() {
+        return khuyenmai;
     }
 
-    public void setListanh(ArrayList<Anh> listanh) {
-        this.listanh = listanh;
+    public void setKhuyenmai(int khuyenmai) {
+        this.khuyenmai = khuyenmai;
     }
+
+    public String getAnhchinh() {
+        return anhchinh;
+    }
+
+    public void setAnhchinh(String anhchinh) {
+        this.anhchinh = anhchinh;
+    }
+    public String getDiemdulich() {
+        return diemdulich;
+    }
+
+    public void setDiemdulichString(String diemdulich) {
+        this.diemdulich = diemdulich;
+    }
+    
     
     
 }

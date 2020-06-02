@@ -46,7 +46,7 @@ public class TourDAO {
             PreparedStatement pre = DataProvider.getInstance().getConnection().prepareStatement(query);
             pre.setString(1, x.getMatour());
             
-            result = pre.executeUpdate();
+        result = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(TourDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,6 +80,10 @@ public class TourDAO {
             Logger.getLogger(TourDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result > 0;
+    }
+
+    public ResultSet GetListTour(String select_from_tour) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

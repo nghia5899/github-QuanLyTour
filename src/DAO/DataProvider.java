@@ -25,8 +25,9 @@ public class DataProvider {
     private DataProvider() 
     {
         try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QuanLyBanHang", "sa", "123456");
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanlytour", "root", "");
+            System.out.println("het noi thanh cong");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(DataProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
