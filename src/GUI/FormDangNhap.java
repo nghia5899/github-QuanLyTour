@@ -16,6 +16,7 @@ public class FormDangNhap extends javax.swing.JFrame {
      */
     public FormDangNhap() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**
@@ -70,8 +71,18 @@ public class FormDangNhap extends javax.swing.JFrame {
         jLabel4.setText("Mật khẩu");
 
         jButton1.setText("Đăng nhập");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Quay lại");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,6 +136,18 @@ public class FormDangNhap extends javax.swing.JFrame {
     private void txttendangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttendangnhapActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txttendangnhapActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        FormGIaoDienAdmin admin = new FormGIaoDienAdmin();
+        admin.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        FormGiaoDienTour formGiaoDienTour = new FormGiaoDienTour();
+        formGiaoDienTour.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
