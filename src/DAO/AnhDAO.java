@@ -15,13 +15,18 @@ public class AnhDAO {
     private static AnhDAO instance ;
     
     public static AnhDAO getInstance(){
-        if(instance!=null)
+        if(instance==null)
             instance = new AnhDAO();
         return instance;
     }
-    public ResultSet GetListAnh(String matour)
-    {
-        return DataProvider.getInstance().GetDataSearch("",matour);
+
+    public AnhDAO() {
     }
+    
+    public ResultSet getListAnh(String matour){
+        return DataProvider.getInstance().GetData("Select * from anh where matour = '"+matour+"'");
+    }
+    
+    
     
 }

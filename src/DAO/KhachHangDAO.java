@@ -20,7 +20,7 @@ public class KhachHangDAO {
    static KhachHangDAO instance;
    
    public static KhachHangDAO getInstance(){
-       if(instance!=null)
+       if(instance==null)
            instance = new KhachHangDAO();
        return instance;
    }
@@ -33,22 +33,12 @@ public class KhachHangDAO {
        return DataProvider.getInstance().GetData("");
    }
    public ResultSet GetKhachHangTheoMa(String maKhachHang){
-        return DataProvider.getInstance().GetDataSearch("", maKhachHang);
+        return null;
    }
    
    
    //kiểm tra nếu tồn tại ở bảng đặt tour thì không xóa được
-   public boolean KiemTraKhoaNgoai(String maKhachHang)
-    {
-        ResultSet data = DataProvider.getInstance().GetDataSearch("", maKhachHang);
-        try {
-            if(data.next())
-                return data.getInt(1) > 0;
-        } catch (SQLException ex) {
-            Logger.getLogger(KhachHangDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
+   
    
    public boolean Insert(KhachHang x)
     {

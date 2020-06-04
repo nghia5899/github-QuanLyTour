@@ -6,6 +6,7 @@
 package GUI;
 
 import BLL.TourBLL;
+import Callback.CallbackTour;
 import DTO.LichTrinh;
 import DTO.Tour;
 import java.awt.Color;
@@ -20,6 +21,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -28,8 +30,8 @@ import javax.swing.JPanel;
  * @author ADMIN
  */
 public class FormChiTietTour extends javax.swing.JFrame {
-    
-    
+    CallbackTour callbackTour;
+    Tour tour;
     /**
      * Creates new form FormChiTietTour
      */
@@ -37,21 +39,30 @@ public class FormChiTietTour extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         hienthilistanh();
-        getThongTinTour();
     }
     
     
-    public void getThongTinTour(){
-        Tour  tour = TourBLL.getInstance().getTourTheoMa("HNQN001");
+    
+    
+    
+    public void getThongTinTour(String matour){
+        tour = TourBLL.getInstance().getTourTheoMa(matour);
         txtMatour.setText(tour.getMatour());
         txtTenTour.setText(tour.getTentour());
         txtDiemXuatPhat.setText(tour.getDiemxuatphat());
         txtThoiGianTour.setText(tour.getThoigiantour());
         txtDiemDuLich.setText(tour.getDiemdulich());
         txtDichVu.setText(tour.getDichvu());
-        
+        hienthilichtrinh();
         
     
+    }
+    
+    public void hienthilichtrinh(){
+        txtngay1.setText(tour.getLichtrinh().get(0).getNoidung()+"");
+        txtngay2.setText(tour.getLichtrinh().get(1).getNoidung()+"");
+        txtngay3.setText(tour.getLichtrinh().get(2).getNoidung()+"");
+        
     }
     public void hienthilistanh(){
             listanh.removeAll();
@@ -77,6 +88,8 @@ public class FormChiTietTour extends javax.swing.JFrame {
             p.add(labelImage);
             listanh.add(p);
         }
+        
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -100,12 +113,16 @@ public class FormChiTietTour extends javax.swing.JFrame {
         txtDiemXuatPhat = new javax.swing.JLabel();
         txtDiemDuLich = new javax.swing.JLabel();
         tablelichtrinh = new javax.swing.JTabbedPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        table1 = new javax.swing.JScrollPane();
+        txtngay1 = new javax.swing.JTextArea();
+        table2 = new javax.swing.JScrollPane();
+        txtngay2 = new javax.swing.JTextArea();
+        table3 = new javax.swing.JScrollPane();
+        txtngay3 = new javax.swing.JTextArea();
+        table4 = new javax.swing.JScrollPane();
+        txtngay4 = new javax.swing.JTextArea();
+        table5 = new javax.swing.JScrollPane();
+        txtngay5 = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         listanh = new javax.swing.JPanel();
@@ -150,29 +167,43 @@ public class FormChiTietTour extends javax.swing.JFrame {
         txtDiemDuLich.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         txtDiemDuLich.setText("Vịnh Hạ Long - Bãi Cháy - Đảo Cô Tô");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setText("NGÀY 1: ĐÓN KHÁCH - THAM QUAN HÀ NỘI (ĂN TRƯA)\n\n4h30: Quý khách có mặt tại sân bay làm thủ tục đáp chuyến bay đến Nội Bài (vé máy bay cung cấp khi Quý khách đặt tour). Xe đón Quý khách tại Nội Bài đưa về tham quan Hà Nội, đầu tiên quý khách tham quan Chùa Trấn Quốc.\n\n09h30:  Tham quan quần thể di tích chủ tịch Hồ Chí Minh, Bảo Tàng Hồ Chí Minh và Nhà sàn, Ao cá Bác Hồ.\n\n10h30:  Điểm tham quan tiếp theo là Chùa Một Cột.\n\n11h00:  Tham quan Văn Miếu Quốc Tử Giám - trường đại học đầu tiên của Việt Nam, cũng là nơi thờ Khổng Tử, Chu Văn An.\n\n12h30:  Dừng chân nghỉ ngơi, ăn trưa tại nhà hàng trong khu vực Phố cổ.\n\n13h40: Tiếp tục chương trình khám phá cuộc sống hàng ngày của gốm truyền thống tại làng gốm Bát Tràng trên bờ sông Hồng. Bạn biết về lịch sử hơn 700 năm của làng, tham quan các phòng trưng bày các sản phẩm gốm Bát Tràng.\n\n15h30:  Tham quan chụp hình tại  khu vực Hồ Hoàn Kiếm - Đền Ngọc Sơn.\n\n15h40 - 16h00: Trở lại khách sạn, chia tay Quý khách kết thúc chương trình.\n\nSau đó, xe đưa Quý khách về nhận phòng khách sạn, tự do ăn tối và dạo chơi Phố cổ Hà nội về đêm.");
-        jScrollPane2.setViewportView(jTextArea1);
+        txtngay1.setColumns(20);
+        txtngay1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtngay1.setRows(5);
+        txtngay1.setText("NGÀY 1: ĐÓN KHÁCH - THAM QUAN HÀ NỘI (ĂN TRƯA)\n\n4h30: Quý khách có mặt tại sân bay làm thủ tục đáp chuyến bay đến Nội Bài (vé máy bay cung cấp khi Quý khách đặt tour). Xe đón Quý khách tại Nội Bài đưa về tham quan Hà Nội, đầu tiên quý khách tham quan Chùa Trấn Quốc.\n\n09h30:  Tham quan quần thể di tích chủ tịch Hồ Chí Minh, Bảo Tàng Hồ Chí Minh và Nhà sàn, Ao cá Bác Hồ.\n\n10h30:  Điểm tham quan tiếp theo là Chùa Một Cột.\n\n11h00:  Tham quan Văn Miếu Quốc Tử Giám - trường đại học đầu tiên của Việt Nam, cũng là nơi thờ Khổng Tử, Chu Văn An.\n\n12h30:  Dừng chân nghỉ ngơi, ăn trưa tại nhà hàng trong khu vực Phố cổ.\n\n13h40: Tiếp tục chương trình khám phá cuộc sống hàng ngày của gốm truyền thống tại làng gốm Bát Tràng trên bờ sông Hồng. Bạn biết về lịch sử hơn 700 năm của làng, tham quan các phòng trưng bày các sản phẩm gốm Bát Tràng.\n\n15h30:  Tham quan chụp hình tại  khu vực Hồ Hoàn Kiếm - Đền Ngọc Sơn.\n\n15h40 - 16h00: Trở lại khách sạn, chia tay Quý khách kết thúc chương trình.\n\nSau đó, xe đưa Quý khách về nhận phòng khách sạn, tự do ăn tối và dạo chơi Phố cổ Hà nội về đêm.");
+        table1.setViewportView(txtngay1);
 
-        tablelichtrinh.addTab("Ngày 1", jScrollPane2);
+        tablelichtrinh.addTab("Ngày 1", table1);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextArea2.setRows(5);
-        jTextArea2.setText("NGÀY 2: HÀ NỘI – HẠ LONG  (ĂN SÁNG, TRƯA,TỐI)\n\n8h: Xe và hướng dẫn viên đón Quý khách khởi hành đi Hạ Long (Quảng Ninh). \n\n12h30:  Đến cảng tàu quốc tế tuần châu, Hướng dẫn viên sẽ mua vé để quý khách lên tàu ra tham quan Vịnh Hạ Long.\n\n13h00: Sau khi lên tàu, Quý khách thưởng thức đồ uống chào mừng và dùng bữa trưa trên tàu.\n\n13h45: Sau khi thưởng thức bữa trưa, du khách có thể đứng trên boong tàu để chụp ảnh, ngắm nhìn vịnh hạ long. Điểm đầu tiên du khách được thăm quan chính là hòn Chó Đá đứng sừng sững quay lưng ra biển. \n\n14h00: Sau khi tham quan hòn chó đá là đến Hòn Đỉnh Hương trước khi tàu đưa du khách thăm quan khu làng chài – ba hang. Đến với khu làng chài – ba hang tàu sẽ chờ đợi du khách 1 tiếng cho các hoạt động ngồi thuyền tre để người dân địa phương đưa đi tham quan hoặc  tự do chèo xuồng kayat.\n\n15h00: Tiếp tục lên tàu để tham quan tham quan hòn Trống Mái (hòn gà chọi).\n\n15h30: Du khách vào tham quan Động thiên cung.\n\nSau đó, xe đưa quý khách trở lại bến tàu, Quý khách lên xe về Hà Nội, ăn tối và nghỉ đêm tại Hà Nội.\n\n");
-        jScrollPane1.setViewportView(jTextArea2);
+        txtngay2.setColumns(20);
+        txtngay2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtngay2.setRows(5);
+        txtngay2.setText("NGÀY 2: HÀ NỘI – HẠ LONG  (ĂN SÁNG, TRƯA,TỐI)\n\n8h: Xe và hướng dẫn viên đón Quý khách khởi hành đi Hạ Long (Quảng Ninh). \n\n12h30:  Đến cảng tàu quốc tế tuần châu, Hướng dẫn viên sẽ mua vé để quý khách lên tàu ra tham quan Vịnh Hạ Long.\n\n13h00: Sau khi lên tàu, Quý khách thưởng thức đồ uống chào mừng và dùng bữa trưa trên tàu.\n\n13h45: Sau khi thưởng thức bữa trưa, du khách có thể đứng trên boong tàu để chụp ảnh, ngắm nhìn vịnh hạ long. Điểm đầu tiên du khách được thăm quan chính là hòn Chó Đá đứng sừng sững quay lưng ra biển. \n\n14h00: Sau khi tham quan hòn chó đá là đến Hòn Đỉnh Hương trước khi tàu đưa du khách thăm quan khu làng chài – ba hang. Đến với khu làng chài – ba hang tàu sẽ chờ đợi du khách 1 tiếng cho các hoạt động ngồi thuyền tre để người dân địa phương đưa đi tham quan hoặc  tự do chèo xuồng kayat.\n\n15h00: Tiếp tục lên tàu để tham quan tham quan hòn Trống Mái (hòn gà chọi).\n\n15h30: Du khách vào tham quan Động thiên cung.\n\nSau đó, xe đưa quý khách trở lại bến tàu, Quý khách lên xe về Hà Nội, ăn tối và nghỉ đêm tại Hà Nội.\n\n");
+        table2.setViewportView(txtngay2);
 
-        tablelichtrinh.addTab("Ngày 2", jScrollPane1);
+        tablelichtrinh.addTab("Ngày 2", table2);
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextArea3.setRows(5);
-        jTextArea3.setText("NGÀY 3: HÀ NỘI – LÀO CAI- SAPA (ĂN SÁNG, TRƯA, TỐI)\n\n6h30: Quý khách trả phòng khách sạn, xe đón, đưa Quý khách đi du lịch SaPa – Thành phố trong sương.\n\n13h00: Tới Sapa, Quý khách ăn trưa, nghỉ ngơi. Nhận phòng khách sạn và thưởng thức không khí trong lành và phong cảnh hữu tình của Sapa. \n\nChiều: Quý khách khởi động bằng một cuộc leo lên đỉnh Hàm Rồng gồm có: Vườn Lan 1-2, vườn Lê, vườn Táo Mèo, Vườn hoa Trung Tâm, Hòn Đá Gãy, Cổng Trời, Đầu Rồng, Hòn Cá Sấu, Khu Thiên Thách Lâm, Hòn Phật Bà, Sân Mây, tháp truyền hình …\n\nTối: Ăn tối và nghỉ đêm tại Sa Pa. Đặc biệt vào tối thứ bảy Quý khách có thể tham dự phiên Chợ Tình của người Dao Đỏ ");
-        jScrollPane3.setViewportView(jTextArea3);
+        txtngay3.setColumns(20);
+        txtngay3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtngay3.setRows(5);
+        txtngay3.setText("NGÀY 3: HÀ NỘI – LÀO CAI- SAPA (ĂN SÁNG, TRƯA, TỐI)\n\n6h30: Quý khách trả phòng khách sạn, xe đón, đưa Quý khách đi du lịch SaPa – Thành phố trong sương.\n\n13h00: Tới Sapa, Quý khách ăn trưa, nghỉ ngơi. Nhận phòng khách sạn và thưởng thức không khí trong lành và phong cảnh hữu tình của Sapa. \n\nChiều: Quý khách khởi động bằng một cuộc leo lên đỉnh Hàm Rồng gồm có: Vườn Lan 1-2, vườn Lê, vườn Táo Mèo, Vườn hoa Trung Tâm, Hòn Đá Gãy, Cổng Trời, Đầu Rồng, Hòn Cá Sấu, Khu Thiên Thách Lâm, Hòn Phật Bà, Sân Mây, tháp truyền hình …\n\nTối: Ăn tối và nghỉ đêm tại Sa Pa. Đặc biệt vào tối thứ bảy Quý khách có thể tham dự phiên Chợ Tình của người Dao Đỏ ");
+        table3.setViewportView(txtngay3);
 
-        tablelichtrinh.addTab("Ngày 3", jScrollPane3);
+        tablelichtrinh.addTab("Ngày 3", table3);
+
+        txtngay4.setColumns(20);
+        txtngay4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtngay4.setRows(5);
+        table4.setViewportView(txtngay4);
+
+        tablelichtrinh.addTab("Ngày 4", table4);
+
+        txtngay5.setColumns(20);
+        txtngay5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtngay5.setRows(5);
+        table5.setViewportView(txtngay5);
+
+        tablelichtrinh.addTab("Ngày 5", table5);
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel12.setText("Lịch Trình:");
@@ -248,26 +279,27 @@ public class FormChiTietTour extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNgayKhoiHanh)
                             .addComponent(txtDiemDuLich))
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtThoiGianTour)
-                        .addGap(144, 144, 144))
+                        .addGap(27, 27, 27))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtDichVu)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtThoiGianTour))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(106, 106, 106))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(22, 22, 22)
-                            .addComponent(jLabel12)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tablelichtrinh, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(43, 43, 43)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 994, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tablelichtrinh, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 994, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -288,31 +320,36 @@ public class FormChiTietTour extends javax.swing.JFrame {
                     .addComponent(txtThoiGianTour)
                     .addComponent(jLabel7)
                     .addComponent(txtNgayKhoiHanh))
-                .addGap(26, 26, 26)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtDiemXuatPhat)
                     .addComponent(jLabel8)
-                    .addComponent(txtDiemDuLich)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(txtDiemDuLich))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(txtDichVu))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                    .addComponent(txtDichVu)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tablelichtrinh, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addGap(24, 24, 24))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(357, 357, 357))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(tablelichtrinh, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
         FormDangKyTour dangKyTour = new FormDangKyTour();
+        dangKyTour.hienthithongtin(tour);
         dangKyTour.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -368,15 +405,14 @@ public class FormChiTietTour extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JPanel listanh;
+    private javax.swing.JScrollPane table1;
+    private javax.swing.JScrollPane table2;
+    private javax.swing.JScrollPane table3;
+    private javax.swing.JScrollPane table4;
+    private javax.swing.JScrollPane table5;
     private javax.swing.JTabbedPane tablelichtrinh;
     private javax.swing.JLabel txtDichVu;
     private javax.swing.JLabel txtDiemDuLich;
@@ -385,5 +421,10 @@ public class FormChiTietTour extends javax.swing.JFrame {
     private javax.swing.JLabel txtNgayKhoiHanh;
     private javax.swing.JLabel txtTenTour;
     private javax.swing.JLabel txtThoiGianTour;
+    private javax.swing.JTextArea txtngay1;
+    private javax.swing.JTextArea txtngay2;
+    private javax.swing.JTextArea txtngay3;
+    private javax.swing.JTextArea txtngay4;
+    private javax.swing.JTextArea txtngay5;
     // End of variables declaration//GEN-END:variables
 }
