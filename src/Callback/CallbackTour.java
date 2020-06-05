@@ -3,19 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package quanlytour;
+package Callback;
+
+import DTO.Tour;
 
 /**
  *
  * @author ADMIN
  */
-public class QuanLyTour {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        System.out.println("test");
-    }
-    
+public interface CallbackTour {
+    public void xuly(Tour tour);
+    public void click(int i);
 }
