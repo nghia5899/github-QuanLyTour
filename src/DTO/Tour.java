@@ -25,6 +25,10 @@ public class Tour {
     int khuyenmai;
     String anhchinh;
 
+    public Tour() {
+    }
+
+    
     public Tour(String matour, String tentour, String diemxuatphat, String diadiem,String diemdulich, String dichvu, String thoigiantour, int giatour, ArrayList<LichTrinh> lichtrinh, int khuyenmai, String anhchinh) {
         this.matour = matour;
         this.tentour = tentour;

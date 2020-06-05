@@ -20,12 +20,13 @@ public class TourDAO {
     private static TourDAO instance ;
     
     public static TourDAO getInstance(){
-        if(instance!=null)
+        if(instance==null)
             instance = new TourDAO();
         return instance;
     }
 
     public TourDAO() {
+        
     }
     
     public ResultSet GetListTour()
@@ -35,7 +36,7 @@ public class TourDAO {
     
     public ResultSet GetTourTheoMa(String matour)
     {
-        return DataProvider.getInstance().GetDataSearch("g",matour);
+        return DataProvider.getInstance().GetData("Select * from tour where matour = '"+matour+"'");
     }
     
     public boolean Insert(Tour x)

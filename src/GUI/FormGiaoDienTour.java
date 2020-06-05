@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import Callback.CallbackTour;
+import DTO.Tour;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -19,6 +21,7 @@ import static java.awt.image.ImageObserver.HEIGHT;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -27,6 +30,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
@@ -38,7 +42,9 @@ import javax.swing.border.EmptyBorder;
  * @author ADMIN
  */
 public class FormGiaoDienTour extends javax.swing.JFrame {
-
+    
+    ArrayList<Tour> dstour = new ArrayList<>();
+    
     /**
      * Creates new form FormQuanLyKhachHang
      */
@@ -76,6 +82,8 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
         listGiaTien.addItem("10.000.000 trở lên ");
     }
     public void hienthitour() {
+        
+        
         int col = 3;
         
         listTour.removeAll();
@@ -85,6 +93,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
         listTour.setBorder(BorderFactory.createLineBorder(Color.yellow));
         
         for (int i = 0; i < 10; i++) {
+            int vitri = i;
             final JPanel p = new JPanel();
             p.setBorder(BorderFactory.createLineBorder(Color.yellow));
             p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
@@ -122,8 +131,10 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FormChiTietTour formChiTietTour = new FormChiTietTour();
+                    formChiTietTour.getThongTinTour("HNQN001");
                     formChiTietTour.setVisible(true);
                     setVisible(false);
+                    
                 }
             });
             btn2.addActionListener(new ActionListener() {
@@ -139,6 +150,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
             
             p.add(bottom);
             listTour.add(p);
+            
             
         }
     }

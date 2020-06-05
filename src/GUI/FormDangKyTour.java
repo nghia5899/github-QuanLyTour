@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import Callback.CallbackTour;
+import DTO.Tour;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.ChangeEvent;
@@ -16,10 +18,19 @@ import javax.swing.event.DocumentListener;
  *
  * @author chubo
  */
-public class FormDangKyTour extends javax.swing.JFrame {
+public class FormDangKyTour extends javax.swing.JFrame{
     int tien=1000000;
     int venguoilon=0;
     int vetreem=0;
+    Tour tour;
+
+    public Tour getTour() {
+        return tour;
+    }
+
+    public void setTour(Tour tour) {
+        this.tour = tour;
+    }
     /**
      * Creates new form DangKyTour
      */
@@ -28,7 +39,18 @@ public class FormDangKyTour extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         tinhtongtien();
     }
+
+   
     
+    
+    public void hienthithongtin(Tour tour){
+        txtMatour.setText(tour.getMatour());
+        txtTenTour.setText(tour.getTentour());
+        txtThoigian.setText(tour.getThoigiantour());
+        txtGiatien.setText(tour.getGiatour()+" VND");
+        txtXuatPhat.setText(tour.getDiemxuatphat());
+        
+    }
     
     public void tinhtongtien(){
         
@@ -81,17 +103,17 @@ public class FormDangKyTour extends javax.swing.JFrame {
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         txtNguoiLon = new javax.swing.JSpinner();
         txtTreEm = new javax.swing.JSpinner();
-        jLabel7 = new javax.swing.JLabel();
+        txtMatour = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        txtTenTour = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        txtXuatPhat = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        txtThoigian = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        txtkhoihanh = new javax.swing.JLabel();
+        txtGiatien = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         txtTongtien = new javax.swing.JLabel();
@@ -259,20 +281,20 @@ public class FormDangKyTour extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jLabel7.setText("HNQN01");
+        txtMatour.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        txtMatour.setText("HNQN01");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Mã tour :");
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jLabel8.setText("Hà nội -Hạ long - Bãi Cháy");
+        txtTenTour.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        txtTenTour.setText("Hà nội -Hạ long - Bãi Cháy");
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setText("Tên tour :");
 
-        jLabel10.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jLabel10.setText("Hà nội");
+        txtXuatPhat.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        txtXuatPhat.setText("Hà nội");
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel11.setText("Điểm xuất phát :");
@@ -280,17 +302,17 @@ public class FormDangKyTour extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel12.setText("Thời gian :");
 
-        jLabel13.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jLabel13.setText("4 ngày");
+        txtThoigian.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        txtThoigian.setText("4 ngày");
 
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel14.setText("Ngày khởi hành :");
 
-        jLabel15.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jLabel15.setText("1/6/2020");
+        txtkhoihanh.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        txtkhoihanh.setText("1/6/2020");
 
-        jLabel16.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
-        jLabel16.setText("1.500.000/người");
+        txtGiatien.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        txtGiatien.setText("1.500.000/người");
 
         jLabel17.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel17.setText("Giá tiền:");
@@ -332,15 +354,15 @@ public class FormDangKyTour extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10))
+                        .addComponent(txtXuatPhat))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel7))
+                        .addComponent(txtMatour))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel16)))
+                        .addComponent(txtGiatien)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
@@ -351,15 +373,15 @@ public class FormDangKyTour extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel13)
+                                .addComponent(txtThoigian)
                                 .addGap(66, 66, 66)
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel15))
+                                .addComponent(txtkhoihanh))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8)))))
+                                .addComponent(txtTenTour)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -374,24 +396,24 @@ public class FormDangKyTour extends javax.swing.JFrame {
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel7)))
+                            .addComponent(txtMatour)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel8))))
+                            .addComponent(txtTenTour))))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel10)
+                    .addComponent(txtXuatPhat)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel13)
+                    .addComponent(txtThoigian)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                    .addComponent(txtkhoihanh))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
-                    .addComponent(jLabel16)
+                    .addComponent(txtGiatien)
                     .addComponent(jLabel19))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -465,13 +487,9 @@ public class FormDangKyTour extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private com.toedter.calendar.JDayChooser jDayChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -480,25 +498,31 @@ public class FormDangKyTour extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel tongtien;
     private javax.swing.JButton txtDangKyTour;
+    private javax.swing.JLabel txtGiatien;
+    private javax.swing.JLabel txtMatour;
     private javax.swing.JSpinner txtNguoiLon;
     private javax.swing.JTextField txtTenKhach;
     private javax.swing.JTextField txtTenKhach1;
     private javax.swing.JTextField txtTenKhach2;
     private javax.swing.JTextField txtTenKhach3;
+    private javax.swing.JLabel txtTenTour;
+    private javax.swing.JLabel txtThoigian;
     private javax.swing.JLabel txtTongtien;
     private javax.swing.JSpinner txtTreEm;
+    private javax.swing.JLabel txtXuatPhat;
+    private javax.swing.JLabel txtkhoihanh;
     private javax.swing.JLabel xdd;
     private javax.swing.JLabel xdd2;
     private javax.swing.JLabel xdd3;
     private javax.swing.JLabel xdd4;
     private javax.swing.JLabel xdd5;
     // End of variables declaration//GEN-END:variables
+
+    
 }
