@@ -28,6 +28,10 @@ public class KhachHang {
         this.ngaysinh = ngaysinh;
     }
 
+    public KhachHang() {
+        //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String getMakhachhang() {
         return makhachhang;
     }
