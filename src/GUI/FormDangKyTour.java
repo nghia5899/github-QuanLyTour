@@ -18,12 +18,13 @@ import javax.swing.event.DocumentListener;
  *
  * @author chubo
  */
-public class FormDangKyTour extends javax.swing.JFrame{
+public class FormDangKyTour extends javax.swing.JFrame {
     int tien=1000000;
     int venguoilon=0;
     int vetreem=0;
     Tour tour;
-
+    
+    
     public Tour getTour() {
         return tour;
     }
@@ -523,6 +524,8 @@ public class FormDangKyTour extends javax.swing.JFrame{
     private javax.swing.JLabel xdd4;
     private javax.swing.JLabel xdd5;
     // End of variables declaration//GEN-END:variables
+
+    
 
     
 }

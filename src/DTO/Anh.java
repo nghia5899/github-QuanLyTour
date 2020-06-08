@@ -43,6 +43,4 @@ public class Anh{
     public void setLinkanh(String linkanh) {
         this.linkanh = linkanh;
     }
-    
-    
 }

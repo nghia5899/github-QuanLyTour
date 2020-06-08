@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 public class FormChiTietTour extends javax.swing.JFrame {
     CallbackTour callbackTour;
     Tour tour;
+    
     /**
      * Creates new form FormChiTietTour
      */
@@ -53,9 +54,6 @@ public class FormChiTietTour extends javax.swing.JFrame {
         txtThoiGianTour.setText(tour.getThoigiantour());
         txtDiemDuLich.setText(tour.getDiemdulich());
         txtDichVu.setText(tour.getDichvu());
-        hienthilichtrinh();
-        
-    
     }
     
     public void hienthilichtrinh(){

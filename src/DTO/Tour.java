@@ -17,7 +17,7 @@ public class Tour {
     String tentour;
     String diemxuatphat;
     String thoigiantour;
-    int giatour;
+    int giatour =0;
     String diadiem;
     String diemdulich;
     ArrayList<LichTrinh> lichtrinh;
@@ -26,6 +26,13 @@ public class Tour {
     String anhchinh;
 
     public Tour() {
+    }
+
+    public Tour(String matour, String tentour,int giatour, int khuyenmai) {
+        this.matour = matour;
+        this.tentour = tentour;
+        this.khuyenmai = khuyenmai;
+        this.giatour =giatour;
     }
 
     

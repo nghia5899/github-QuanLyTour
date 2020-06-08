@@ -44,5 +44,16 @@ public class DataProvider {
         }
         return data;
     }
-    
+    public ResultSet GetDataSearch(String query, String ma)
+    {
+        ResultSet data = null;
+        try {
+            PreparedStatement pre = connection.prepareStatement(query);
+            pre.setString(1, ma);
+            data = pre.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataProvider.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return data;
+    }
 }

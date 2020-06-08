@@ -99,7 +99,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jDateChooser1" max="32767" attributes="0"/>
+                                  <Component id="calendar" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -117,7 +117,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="135" max="-2" attributes="0"/>
+                          <Component id="btntimkiem" min="-2" pref="135" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="34" max="32767" attributes="0"/>
@@ -145,20 +145,23 @@
                   <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
+                      <Component id="calendar" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="btntimkiem" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace pref="132" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btntimkiem">
           <Properties>
             <Property name="text" type="java.lang.String" value="T&#xcc;m ki&#x1ebf;m"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btntimkiemActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -220,7 +223,7 @@
             <Property name="text" type="java.lang.String" value="Ng&#xe0;y kh&#x1edf;i h&#xe0;nh :"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+        <Component class="com.toedter.calendar.JDateChooser" name="calendar">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>

@@ -45,9 +45,9 @@ public class TourBLL {
         }
     }
     
-    public void GetListTour(ArrayList<Tour> listtour, Vector tableRecord){
+    public void GetListTour(ArrayList<Tour> listtour){
         listtour.clear();
-        tableRecord.clear();
+       
         ResultSet data = TourDAO.getInstance().GetListTour();
         
         try {
