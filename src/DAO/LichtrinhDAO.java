@@ -27,4 +27,8 @@ public class LichtrinhDAO {
     {
         return DataProvider.getInstance().GetData("select * from lichtrinh where matour = '"+matour+"'");
     }
+    public ResultSet demsolichtrinh(String matour){
+        
+        return DataProvider.getInstance().GetData("select count(*) as 'songay' from lichtrinh where matour = '"+matour+"'");
+    }
 }

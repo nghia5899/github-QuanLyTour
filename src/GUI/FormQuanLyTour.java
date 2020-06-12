@@ -15,7 +15,10 @@ public class FormQuanLyTour extends javax.swing.JFrame {
      * Creates new form FormQuanLyTour
      */
     public FormQuanLyTour() {
+        
         initComponents();
+        setLocationRelativeTo(this);
+        setLocationRelativeTo(this);
     }
 
     /**

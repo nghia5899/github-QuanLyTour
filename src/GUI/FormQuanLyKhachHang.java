@@ -10,6 +10,8 @@ import DAO.KhachHangDAO;
 import BLL.KhachHangBLL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,8 +27,8 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
 
     ArrayList<KhachHang> list = new ArrayList<>();
     DefaultTableModel model;
-    KhachHang x = new KhachHang();
-
+    KhachHang x = new KhachHang();   
+    
     /**
      * Creates new form QuanLyKhachHang
      */
@@ -34,7 +36,8 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         hienthi();
-
+        java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+        dcNgaySinh.setDate(date);
     }
 
     /**
@@ -67,10 +70,10 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtGmail = new javax.swing.JTextField();
         lblPhone1 = new javax.swing.JLabel();
-        txtNgaySinh = new javax.swing.JTextField();
         rdNam = new javax.swing.JRadioButton();
         rdNu = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
+        dcNgaySinh = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản Lý Khách Hàng");
@@ -149,6 +152,8 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
             }
         });
 
+        dcNgaySinh.setDateFormatString("yyyy-MM-dd");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,24 +164,38 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblPhone1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGap(54, 54, 54)
                                         .addComponent(lbTrang)
                                         .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(69, 69, 69)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtDiDong, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGap(206, 206, 206)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(lblPhone)
+                                                    .addComponent(lblID))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(btnSua, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnXoa)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnTim))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(69, 69, 69)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(txtDiDong, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lblPhone1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(dcNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(188, 188, 188)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(layout.createSequentialGroup()
                                                         .addComponent(jLabel1)
@@ -191,26 +210,12 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
                                                 .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(rdNam, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(rdNu))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(lblPhone)
-                                                    .addComponent(lblID))
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(btnSua)))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnXoa)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnTim)))
+                                                .addComponent(rdNu)))))
                                 .addGap(22, 22, 22))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -251,11 +256,12 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
                             .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(lblHeader))
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPhone1)
-                    .addComponent(jLabel1)
-                    .addComponent(txtGmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblPhone1)
+                        .addComponent(jLabel1)
+                        .addComponent(txtGmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dcNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSua)
@@ -287,7 +293,7 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
         }
     }
     private boolean checktrong(){
-        if(txtMaKH.getText().equals("")||txtTenKhach.getText().equals("")||txtDiDong.getText().equals("")||txtDiaChi.getText().equals("")||txtGmail.getText().equals("")||txtNgaySinh.getText().equals("")){
+        if(txtMaKH.getText().equals("")||txtTenKhach.getText().equals("")||txtDiDong.getText().equals("")||txtDiaChi.getText().equals("")||txtGmail.getText().equals("")){
             return false;
         }else return true;
     }
@@ -307,7 +313,14 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
         txtDiDong.setText(tbQuanLyKhach.getModel().getValueAt(vitri, 3) + "");
         txtDiaChi.setText(tbQuanLyKhach.getModel().getValueAt(vitri, 4) + "");
         txtGmail.setText(tbQuanLyKhach.getModel().getValueAt(vitri, 5) + "");
-        txtNgaySinh.setText(tbQuanLyKhach.getModel().getValueAt(vitri, 6) + "");
+        String ngay =(String) tbQuanLyKhach.getModel().getValueAt(vitri, 6);
+       try {
+            java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(ngay);
+           dcNgaySinh.setDate(date);
+
+        } catch (ParseException ex) {
+            Logger.getLogger(FormGiaoDienTour.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_tbQuanLyKhachMouseClicked
 
@@ -320,16 +333,13 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
         String maKhachHang = txtMaKH.getText();
+        String ngaysinh = new SimpleDateFormat("yyyy-MM-dd").format(dcNgaySinh.getDate());
+        int gioitinh=0;
         if(checktrong()){
-            ResultSet rs = KhachHangBLL.getInstance().GetKhachHangTheoMa(maKhachHang);
-            try {
-                while(rs.next()){
-                    x = new KhachHang(rs.getString("makhachhang"), rs.getString("tenkhachhang"), rs.getInt("gioitinh"),
-                        rs.getString("sodienthoai"), rs.getString("gmail"), rs.getString("diachi"), rs.getString("ngaysinh"));
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(FormQuanLyKhachHang.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            if(rdNam.isSelected()){
+                gioitinh=0;
+            }else if(rdNu.isSelected()) gioitinh = 1;
+            x = new KhachHang(txtMaKH.getText(), txtTenKhach.getText(), gioitinh, txtDiDong.getText(),txtGmail.getText(),txtDiaChi.getText(),ngaysinh);
             if(KhachHangBLL.getInstance().Update(x)){
             JOptionPane.showMessageDialog(rootPane, "Sửa thông tin khách hàng mã: "+x.getMakhachhang()+" thành công!");
             list.clear();
@@ -340,8 +350,9 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập tất cả các trường trước!!");
         }
+        
     }//GEN-LAST:event_btnSuaActionPerformed
-
+    
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
         String maKhachHang = txtMaKH.getText();
@@ -349,7 +360,7 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Trường Mã Khách không được để trống");
         }
         if (KhachHangDAO.getInstance().KiemTraKhoaNgoai(maKhachHang)) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xoá không?", "Thông Báo", 0, JOptionPane.YES_NO_OPTION) == 0) {
+            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xoá toàn bộ thông tin của khách này từ mọi bảng không?", "Thông Báo", 0, JOptionPane.YES_NO_OPTION) == 0) {
                 KhachHangBLL.getInstance().Delete(maKhachHang);
                 JOptionPane.showMessageDialog(rootPane, "Xoá thành công!");
 
@@ -377,7 +388,7 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
             if (i.getGioitinh() == 0) {
                 gioitinh = "nam";
             } else {
-                gioitinh = "nu";
+                gioitinh = "nữ";
             }
             Object[] s = {i.getMakhachhang(), i.getTenkhachhang(), gioitinh, i.getSodienthoai(), i.getDiachi(), i.getGmail(), i.getNgaysinh()};
             model.addRow(s);
@@ -432,6 +443,7 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTim;
     private javax.swing.JButton btnXoa;
+    private com.toedter.calendar.JDateChooser dcNgaySinh;
     private javax.swing.ButtonGroup groupgiotinh;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -452,7 +464,6 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtGmail;
     private javax.swing.JTextField txtMaKH;
-    private javax.swing.JTextField txtNgaySinh;
     private javax.swing.JTextField txtTenKhach;
     // End of variables declaration//GEN-END:variables
 }

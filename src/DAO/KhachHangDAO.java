@@ -59,7 +59,7 @@ public class KhachHangDAO {
         
         try {
             Statement pre = DataProvider.getInstance().getConnection().createStatement();          
-            result = pre.executeUpdate(query);
+                result = pre.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(KhachHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

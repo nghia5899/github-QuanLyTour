@@ -5,10 +5,20 @@
  */
 package GUI;
 
-import Callback.CallbackTour;
+import BLL.DangiKyTourBLL;
+import BLL.TourBLL;
+import DTO.KhachHang;
 import DTO.Tour;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
@@ -38,11 +48,109 @@ public class FormDangKyTour extends javax.swing.JFrame {
     public FormDangKyTour() {
         initComponents();
         setLocationRelativeTo(this);
+        capnhatngay();
         tinhtongtien();
+ //       getThongTinTour(tour.getMatour());
     }
 
    
+    public void setNgayKhoihang(java.util.Date date){
+        String string  = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        txtkhoihanh.setText(string);
+    }
+    public boolean kiemsoatform(){
+        boolean kiemtra = true;
+        String ngaysinh = null;
+        try {
+            java.util.Date date = txtngaysinh.getDate();
+            ngaysinh  = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(rootPane,"Khong duoc de trong ngay");
+            kiemtra = false;
+        }
+        
+        //kiemtraten
+        if (Pattern.matches("[a-zA-Z ]+", txtTenKhach.getText())&&!txtTenKhach.getText().equals("")) {
+            tbten.setText("");
+        } else {
+            tbten.setText("Nhập sai tên !");
+            kiemtra = false;
+        }
+        
+        //kiemtrasdt
+        if (Pattern.matches("[0]{1}[0-9]{9}", txtSodienthoai.getText())&&!txtSodienthoai.getText().equals("")) {
+            tbsdt.setText("");
+        } else {
+            tbsdt.setText("Nhập sai sđt !");
+            kiemtra = false;
+        }
+        
+        //kiémtraemail
+        if (Pattern.matches("[a-zA-Z]+[@]{1}[a-zA-Z]{1,}[.]{1}[a-zA-Z]+",txtgmail.getText())&&!txtgmail.getText().equals("")) {
+            tbgmail.setText("");
+        } else {
+            tbgmail.setText("Nhập sai gmail !");
+            kiemtra = false;
+        }
+        //kiemtradiachi
+        if (!txtdiachi.getText().equals("")) {
+            tbdiachi.setText("");
+        } else {
+            tbdiachi.setText("Nhập sai gmail !");
+            kiemtra = false;
+        }
+            
+        return kiemtra ;
+    }
+    public void capnhatngay() {
+        txtngaysinh.setDateFormatString("yyyy-MM-dd");
+        Calendar lich = new GregorianCalendar();
+        String ngay = lich.get(Calendar.DAY_OF_MONTH) + "";
+        String thang = lich.get(Calendar.MONTH) + "";
+        String nam = lich.get(Calendar.YEAR) + "";
+        if (ngay.length() == 1) {
+            ngay = "0" + ngay;
+        }
+        if (thang.length() == 1) {
+            thang = "0" + thang;
+        }
+        String string = nam + "-" + thang + "-" + ngay;
+
+        try {
+            java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(string);
+            
+            txtngaysinh.setDate(date);
+
+        } catch (ParseException ex) {
+            Logger.getLogger(FormGiaoDienTour.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     
+    public void taoma(String matourdabook,String makhachhang){
+            StringBuilder makh = new StringBuilder() ;
+            String tenkhach = txtTenKhach.getText();
+            String mang[] = tenkhach.trim().split("\\s+");
+            for(String s: mang){
+                makh.append(s.charAt(0));
+            }
+            makhachhang = makh.toString();
+            
+            StringBuilder matourbook = new StringBuilder();
+            matourbook.append(txtMatour.getText());
+            matourbook.append(makhachhang);
+            matourbook.append(txtkhoihanh.getText());
+            matourdabook = matourbook.toString();
+            
+    }
+    public void getThongTinTour(String matour){
+        tour = TourBLL.getInstance().getTourTheoMa(matour);
+        txtMatour.setText(tour.getMatour());
+        txtTenTour.setText(tour.getTentour());
+        txtXuatPhat.setText(tour.getDiemxuatphat());
+        txtThoigian.setText(tour.getThoigiantour());
+        txtGiatien.setText(tour.getGiatour()+" VND");
+    }
     
     public void hienthithongtin(Tour tour){
         txtMatour.setText(tour.getMatour());
@@ -85,25 +193,29 @@ public class FormDangKyTour extends javax.swing.JFrame {
         tongtien = new javax.swing.JLabel();
         txtDangKyTour = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        txttreem = new javax.swing.JPanel();
         xdd = new javax.swing.JLabel();
         txtTenKhach = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         xdd2 = new javax.swing.JLabel();
-        txtTenKhach1 = new javax.swing.JTextField();
-        txtTenKhach2 = new javax.swing.JTextField();
+        txtSodienthoai = new javax.swing.JTextField();
+        txtgmail = new javax.swing.JTextField();
         xdd3 = new javax.swing.JLabel();
         xdd4 = new javax.swing.JLabel();
-        txtTenKhach3 = new javax.swing.JTextField();
+        txtdiachi = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         btnnam = new javax.swing.JRadioButton();
         btnnu = new javax.swing.JRadioButton();
         xdd5 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        txtngaysinh = new com.toedter.calendar.JDateChooser();
         txtNguoiLon = new javax.swing.JSpinner();
         txtTreEm = new javax.swing.JSpinner();
+        tbten = new javax.swing.JLabel();
+        tbsdt = new javax.swing.JLabel();
+        tbgmail = new javax.swing.JLabel();
+        tbdiachi = new javax.swing.JLabel();
         txtMatour = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtTenTour = new javax.swing.JLabel();
@@ -146,6 +258,11 @@ public class FormDangKyTour extends javax.swing.JFrame {
         tongtien.setToolTipText("");
 
         txtDangKyTour.setText("Đăng Ký ");
+        txtDangKyTour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDangKyTourActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Quay lại");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +271,7 @@ public class FormDangKyTour extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
+        txttreem.setBorder(new javax.swing.border.MatteBorder(null));
 
         xdd.setText("Tên Khách hàng :");
 
@@ -169,19 +286,20 @@ public class FormDangKyTour extends javax.swing.JFrame {
 
         xdd2.setText("Số điện thoại :");
 
-        txtTenKhach1.addActionListener(new java.awt.event.ActionListener() {
+        txtSodienthoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTenKhach1ActionPerformed(evt);
+                txtSodienthoaiActionPerformed(evt);
             }
         });
 
-        xdd3.setText("Email :");
+        xdd3.setText("Gmail :");
 
         xdd4.setText("Địa chỉ");
 
         jLabel6.setText("Giới Tính :");
 
         btngioitinh.add(btnnam);
+        btnnam.setSelected(true);
         btnnam.setText("Nam");
 
         btngioitinh.add(btnnu);
@@ -189,50 +307,67 @@ public class FormDangKyTour extends javax.swing.JFrame {
 
         xdd5.setText("Ngày sinh :");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        tbten.setForeground(new java.awt.Color(223, 0, 41));
+        tbten.setText("abc");
+
+        tbsdt.setForeground(new java.awt.Color(223, 0, 41));
+        tbsdt.setText("abc");
+
+        tbgmail.setForeground(new java.awt.Color(223, 0, 41));
+        tbgmail.setText("abc");
+
+        tbdiachi.setForeground(new java.awt.Color(223, 0, 41));
+        tbdiachi.setText("abc");
+
+        javax.swing.GroupLayout txttreemLayout = new javax.swing.GroupLayout(txttreem);
+        txttreem.setLayout(txttreemLayout);
+        txttreemLayout.setHorizontalGroup(
+            txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(txttreemLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(txttreemLayout.createSequentialGroup()
+                        .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(xdd)
-                                                .addComponent(xdd3, javax.swing.GroupLayout.Alignment.TRAILING))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(xdd4)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(xdd2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtTenKhach1)
-                                        .addComponent(txtTenKhach)
-                                        .addComponent(txtTenKhach2)
-                                        .addComponent(txtTenKhach3, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(8, 8, 8)
-                                            .addComponent(btnnam, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnnu))))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addGap(36, 36, 36)
-                                    .addComponent(xdd5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(201, 201, 201))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, txttreemLayout.createSequentialGroup()
+                                .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(txttreemLayout.createSequentialGroup()
+                                        .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(xdd)
+                                            .addComponent(xdd3, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                    .addGroup(txttreemLayout.createSequentialGroup()
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18))
+                                    .addGroup(txttreemLayout.createSequentialGroup()
+                                        .addComponent(xdd4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                    .addGroup(txttreemLayout.createSequentialGroup()
+                                        .addComponent(xdd2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtSodienthoai)
+                                    .addComponent(txtTenKhach)
+                                    .addComponent(txtgmail)
+                                    .addComponent(txtdiachi, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                                    .addGroup(txttreemLayout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addComponent(btnnam, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnnu))))
+                            .addGroup(txttreemLayout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(xdd5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtngaysinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tbsdt)
+                            .addComponent(tbten)
+                            .addComponent(tbgmail)
+                            .addComponent(tbdiachi))
+                        .addGap(127, 127, 127))
+                    .addGroup(txttreemLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNguoiLon, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,39 +377,44 @@ public class FormDangKyTour extends javax.swing.JFrame {
                         .addComponent(txtTreEm, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        txttreemLayout.setVerticalGroup(
+            txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(txttreemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(xdd))
+                    .addComponent(xdd)
+                    .addComponent(tbten))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnnam, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnnu)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtngaysinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(xdd5))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTenKhach1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(xdd2))
+                .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSodienthoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(xdd2)
+                    .addComponent(tbsdt))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTenKhach2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtgmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tbgmail))
                     .addComponent(xdd3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(xdd4)
-                    .addComponent(txtTenKhach3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtdiachi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tbdiachi))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(txttreemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(txtNguoiLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,23 +472,23 @@ public class FormDangKyTour extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(65, 65, 65)
-                                .addComponent(txtDangKyTour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(tongtien, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTongtien)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(64, 64, 64))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(243, 243, 243)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txttreem, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(75, 75, 75)
+                                .addComponent(txtDangKyTour, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                                .addGap(64, 64, 64))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(tongtien, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtTongtien)
+                                .addGap(0, 0, Short.MAX_VALUE))))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,7 +551,7 @@ public class FormDangKyTour extends javax.swing.JFrame {
                     .addComponent(txtThoigian)
                     .addComponent(jLabel14)
                     .addComponent(txtkhoihanh))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(txtGiatien)
@@ -425,7 +565,7 @@ public class FormDangKyTour extends javax.swing.JFrame {
                             .addComponent(txtTongtien))
                         .addGap(83, 83, 83)
                         .addComponent(txtDangKyTour, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txttreem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
 
@@ -433,14 +573,48 @@ public class FormDangKyTour extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            FormChiTietTour formChiTietTour = new FormChiTietTour();
+       java.util.Date date = null ;
+        try { 
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(txtkhoihanh.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(FormDangKyTour.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+           
+        FormChiTietTour formChiTietTour = new FormChiTietTour();
+                    formChiTietTour.getThongTinTour(tour.getMatour());
+                    formChiTietTour.setNgayKhoihanh(date);
+                    formChiTietTour.hienthilichtrinh(tour.getMatour());
                     formChiTietTour.setVisible(true);
-                    setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtTenKhach1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenKhach1ActionPerformed
+    private void txtSodienthoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSodienthoaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTenKhach1ActionPerformed
+    }//GEN-LAST:event_txtSodienthoaiActionPerformed
+
+    private void txtDangKyTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDangKyTourActionPerformed
+        String makh = null;
+        if(kiemsoatform()){
+            boolean dangky ;
+            String ngaykhoihanh = txtkhoihanh.getText();
+            String ngaysinh = null;
+            int gioitinh = 0;
+
+            if (btnnam.isSelected()) {
+                gioitinh = 0;
+            }
+            else
+                gioitinh = 1;
+            try {
+                java.util.Date date = txtngaysinh.getDate();
+                ngaysinh  = new SimpleDateFormat("yyyy-MM-dd").format(date);
+            } catch (NullPointerException e) {
+            }
+            KhachHang khachHang = new KhachHang("LQN002",txtTenKhach.getText(), gioitinh,txtSodienthoai.getText(), txtgmail.getText(), txtdiachi.getText(),ngaysinh);
+            dangky = DangiKyTourBLL.getInstance().inserttourdabook(tour, khachHang, ngaykhoihanh, venguoilon, vetreem);
+        }
+        
+    }//GEN-LAST:event_txtDangKyTourActionPerformed
 
     /**
      * @param args the command line arguments
@@ -485,7 +659,6 @@ public class FormDangKyTour extends javax.swing.JFrame {
     private javax.swing.JRadioButton btnnam;
     private javax.swing.JRadioButton btnnu;
     private javax.swing.JButton jButton1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private com.toedter.calendar.JDayChooser jDayChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -500,24 +673,29 @@ public class FormDangKyTour extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel tbdiachi;
+    private javax.swing.JLabel tbgmail;
+    private javax.swing.JLabel tbsdt;
+    private javax.swing.JLabel tbten;
     private javax.swing.JLabel tongtien;
     private javax.swing.JButton txtDangKyTour;
     private javax.swing.JLabel txtGiatien;
     private javax.swing.JLabel txtMatour;
     private javax.swing.JSpinner txtNguoiLon;
+    private javax.swing.JTextField txtSodienthoai;
     private javax.swing.JTextField txtTenKhach;
-    private javax.swing.JTextField txtTenKhach1;
-    private javax.swing.JTextField txtTenKhach2;
-    private javax.swing.JTextField txtTenKhach3;
     private javax.swing.JLabel txtTenTour;
     private javax.swing.JLabel txtThoigian;
     private javax.swing.JLabel txtTongtien;
     private javax.swing.JSpinner txtTreEm;
     private javax.swing.JLabel txtXuatPhat;
+    private javax.swing.JTextField txtdiachi;
+    private javax.swing.JTextField txtgmail;
     private javax.swing.JLabel txtkhoihanh;
+    private com.toedter.calendar.JDateChooser txtngaysinh;
+    private javax.swing.JPanel txttreem;
     private javax.swing.JLabel xdd;
     private javax.swing.JLabel xdd2;
     private javax.swing.JLabel xdd3;

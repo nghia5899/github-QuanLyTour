@@ -6,7 +6,6 @@
 package GUI;
 
 import BLL.GiaoDienTourBLL;
-import Callback.CallbackTour;
 import DAO.GiaoDienTourDAO;
 import DTO.Tour;
 import java.awt.BorderLayout;
@@ -55,7 +54,7 @@ import javax.swing.border.EmptyBorder;
 public class FormGiaoDienTour extends javax.swing.JFrame {
 
     ArrayList<Tour> dstour = new ArrayList<>();
-
+    
     /**
      * Creates new form FormQuanLyKhachHang
      */
@@ -70,6 +69,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
 
     }
     public void test1(){
+        calendar.setDateFormatString("yyyy-MM-dd");
         try {
             java.util.Date date = calendar.getDate();
             String string  = new SimpleDateFormat("yyyy-MM-dd").format(date);
@@ -80,20 +80,19 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
     }
     public void test() {
         Calendar lich = new GregorianCalendar();
-        String day = lich.get(Calendar.DAY_OF_MONTH) + "";
+        String ngay = lich.get(Calendar.DAY_OF_MONTH) + "";
         String thang = lich.get(Calendar.MONTH) + "";
         String nam = lich.get(Calendar.YEAR) + "";
-        if (day.length() == 1) {
-            day = "0" + day;
+        if (ngay.length() == 1) {
+            ngay = "0" + ngay;
         }
         if (thang.length() == 1) {
             thang = "0" + thang;
         }
-        String string = day + "-" + thang + "-" + nam;
-        String string1 = "05-06-2020";
+        String string = nam + "-" + thang + "-" + ngay;
 
         try {
-            java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(string1);
+            java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(string);
             
             calendar.setDate(date);
 
@@ -238,9 +237,10 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
             btn1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(rootPane,dstour.get(vitri).getMatour());
                     FormChiTietTour formChiTietTour = new FormChiTietTour();
                     formChiTietTour.getThongTinTour(dstour.get(vitri).getMatour());
+                    formChiTietTour.setNgayKhoihanh(calendar.getDate());
+                    formChiTietTour.hienthilichtrinh(dstour.get(vitri).getMatour());
                     formChiTietTour.setVisible(true);
                     setVisible(false);
 

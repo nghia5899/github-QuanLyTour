@@ -65,8 +65,8 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtNgayKhoiHanh" min="-2" max="-2" attributes="0"/>
                           <Component id="txtDiemDuLich" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtngaykhoihanh" min="-2" pref="131" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
@@ -116,13 +116,15 @@
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtMatour" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtThoiGianTour" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtNgayKhoiHanh" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="txtngaykhoihanh" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtMatour" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtThoiGianTour" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -137,8 +139,8 @@
                   <Component id="txtDichVu" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton1" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="11" max="32767" attributes="0"/>
-              <Component id="jScrollPane4" min="-2" pref="214" max="-2" attributes="0"/>
+              <EmptySpace pref="50" max="32767" attributes="0"/>
+              <Component id="jScrollPane4" min="-2" pref="175" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
@@ -220,14 +222,6 @@
         <Property name="text" type="java.lang.String" value="&#x110;i&#x1ec3;m du l&#x1ecb;ch :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtNgayKhoiHanh">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="14" style="2"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="28/5/2020"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="txtDiemXuatPhat">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -269,7 +263,6 @@
                   <Font name="Dialog" size="14" style="0"/>
                 </Property>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="NG&#xc0;Y 1: &#x110;&#xd3;N KH&#xc1;CH - THAM QUAN H&#xc0; N&#x1ed8;I (&#x102;N TR&#x1af;A)&#xa;&#xa;4h30: Qu&#xfd; kh&#xe1;ch c&#xf3; m&#x1eb7;t t&#x1ea1;i s&#xe2;n bay l&#xe0;m th&#x1ee7; t&#x1ee5;c &#x111;&#xe1;p chuy&#x1ebf;n bay &#x111;&#x1ebf;n N&#x1ed9;i B&#xe0;i (v&#xe9; m&#xe1;y bay cung c&#x1ea5;p khi Qu&#xfd; kh&#xe1;ch &#x111;&#x1eb7;t tour). Xe &#x111;&#xf3;n Qu&#xfd; kh&#xe1;ch t&#x1ea1;i N&#x1ed9;i B&#xe0;i &#x111;&#x1b0;a v&#x1ec1; tham quan H&#xe0; N&#x1ed9;i, &#x111;&#x1ea7;u ti&#xea;n qu&#xfd; kh&#xe1;ch tham quan Ch&#xf9;a Tr&#x1ea5;n Qu&#x1ed1;c.&#xa;&#xa;09h30:  Tham quan qu&#x1ea7;n th&#x1ec3; di t&#xed;ch ch&#x1ee7; t&#x1ecb;ch H&#x1ed3; Ch&#xed; Minh, B&#x1ea3;o T&#xe0;ng H&#x1ed3; Ch&#xed; Minh v&#xe0; Nh&#xe0; s&#xe0;n, Ao c&#xe1; B&#xe1;c H&#x1ed3;.&#xa;&#xa;10h30:  &#x110;i&#x1ec3;m tham quan ti&#x1ebf;p theo l&#xe0; Ch&#xf9;a M&#x1ed9;t C&#x1ed9;t.&#xa;&#xa;11h00:  Tham quan V&#x103;n Mi&#x1ebf;u Qu&#x1ed1;c T&#x1eed; Gi&#xe1;m - tr&#x1b0;&#x1edd;ng &#x111;&#x1ea1;i h&#x1ecd;c &#x111;&#x1ea7;u ti&#xea;n c&#x1ee7;a Vi&#x1ec7;t Nam, c&#x169;ng l&#xe0; n&#x1a1;i th&#x1edd; Kh&#x1ed5;ng T&#x1eed;, Chu V&#x103;n An.&#xa;&#xa;12h30:  D&#x1eeb;ng ch&#xe2;n ngh&#x1ec9; ng&#x1a1;i, &#x103;n tr&#x1b0;a t&#x1ea1;i nh&#xe0; h&#xe0;ng trong khu v&#x1ef1;c Ph&#x1ed1; c&#x1ed5;.&#xa;&#xa;13h40: Ti&#x1ebf;p t&#x1ee5;c ch&#x1b0;&#x1a1;ng tr&#xec;nh kh&#xe1;m ph&#xe1; cu&#x1ed9;c s&#x1ed1;ng h&#xe0;ng ng&#xe0;y c&#x1ee7;a g&#x1ed1;m truy&#x1ec1;n th&#x1ed1;ng t&#x1ea1;i l&#xe0;ng g&#x1ed1;m B&#xe1;t Tr&#xe0;ng tr&#xea;n b&#x1edd; s&#xf4;ng H&#x1ed3;ng. B&#x1ea1;n bi&#x1ebf;t v&#x1ec1; l&#x1ecb;ch s&#x1eed; h&#x1a1;n 700 n&#x103;m c&#x1ee7;a l&#xe0;ng, tham quan c&#xe1;c ph&#xf2;ng tr&#x1b0;ng b&#xe0;y c&#xe1;c s&#x1ea3;n ph&#x1ea9;m g&#x1ed1;m B&#xe1;t Tr&#xe0;ng.&#xa;&#xa;15h30:  Tham quan ch&#x1ee5;p h&#xec;nh t&#x1ea1;i  khu v&#x1ef1;c H&#x1ed3; Ho&#xe0;n Ki&#x1ebf;m - &#x110;&#x1ec1;n Ng&#x1ecd;c S&#x1a1;n.&#xa;&#xa;15h40 - 16h00: Tr&#x1edf; l&#x1ea1;i kh&#xe1;ch s&#x1ea1;n, chia tay Qu&#xfd; kh&#xe1;ch k&#x1ebf;t th&#xfa;c ch&#x1b0;&#x1a1;ng tr&#xec;nh.&#xa;&#xa;Sau &#x111;&#xf3;, xe &#x111;&#x1b0;a Qu&#xfd; kh&#xe1;ch v&#x1ec1; nh&#x1ead;n ph&#xf2;ng kh&#xe1;ch s&#x1ea1;n, t&#x1ef1; do &#x103;n t&#x1ed1;i v&#xe0; d&#x1ea1;o ch&#x1a1;i Ph&#x1ed1; c&#x1ed5; H&#xe0; n&#x1ed9;i v&#x1ec1; &#x111;&#xea;m."/>
               </Properties>
             </Component>
           </SubComponents>
@@ -391,6 +384,11 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Container class="javax.swing.JPanel" name="listanh">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[991, 150]"/>
+            </Property>
+          </Properties>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -400,7 +398,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="211" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="172" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -449,6 +447,8 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Kh&#xe1;ch san 4*"/>
       </Properties>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="txtngaykhoihanh">
     </Component>
   </SubComponents>
 </Form>
