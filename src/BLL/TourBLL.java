@@ -13,6 +13,7 @@ import DTO.Tour;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,8 +34,8 @@ public class TourBLL {
     public TourBLL() {
     }
     
-    public void GetLichTrinh(ArrayList<LichTrinh> listlichtrinh,String matour){
-        listlichtrinh.clear();
+    public ArrayList<LichTrinh> GetLichTrinh(String matour){
+         ArrayList<LichTrinh> listlichtrinh = new ArrayList<>();
         ResultSet datalichtrinh = LichtrinhDAO.getInstance().GetListLichTrinh(matour);
         try {
             while (datalichtrinh.next()) {
@@ -43,21 +44,20 @@ public class TourBLL {
         } catch (SQLException ex) {
             Logger.getLogger(TourBLL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return listlichtrinh;
     }
     
-    public void GetListTour(ArrayList<Tour> listtour, Vector tableRecord){
+    public void GetListTour(ArrayList<Tour> listtour){
         listtour.clear();
-        tableRecord.clear();
+       
         ResultSet data = TourDAO.getInstance().GetListTour();
         
         try {
             while (data.next()) {
-                ArrayList<LichTrinh> listllichtrinh = new ArrayList<>();
-                GetLichTrinh(listllichtrinh, data.getString("matour"));
-                
+                ArrayList<LichTrinh> listllichtrinh = new ArrayList<>();                
                 Tour tour = new Tour(data.getString("matour"),data.getString("tentour"),data.getString("diemxuatphat"),data.getString("diadiem"),data.getString("diemdulich"),
                                         data.getString("dichvu"),data.getString("thoigiantour"),data.getInt("giatour"),
-                                         listllichtrinh,data.getInt("phantram"),"");
+                                         null,data.getInt("phantram"),"");
                 listtour.add(tour);
             }
         } catch (SQLException ex) {
@@ -69,15 +69,25 @@ public class TourBLL {
         ResultSet data = TourDAO.getInstance().GetTourTheoMa(matour);
         try {
             if(data.next()){
-                ArrayList<LichTrinh> listllichtrinh = new ArrayList<>();
-                GetLichTrinh(listllichtrinh, data.getString("matour"));
                 return new Tour(data.getString("matour"),data.getString("tentour"),data.getString("diemxuatphat"),data.getString("diadiem"),data.getString("diemdulich"),
                         data.getString("dichvu"),data.getString("thoigiantour"),data.getInt("giatour"),
-                        listllichtrinh,10,"");
+                        null,10,"");
             }
         } catch (SQLException ex) {
             Logger.getLogger(TourBLL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
+    public int demsolichtrinh(String matour){
+        int songay=0;
+        ResultSet data = LichtrinhDAO.getInstance().demsolichtrinh(matour);
+        try {
+            data.next();
+             songay = data.getInt("songay");
+        } catch (SQLException ex) {
+            Logger.getLogger(TourBLL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return songay;
+    }
+   
 }

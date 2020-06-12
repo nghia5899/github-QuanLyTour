@@ -5,7 +5,8 @@
  */
 package GUI;
 
-import Callback.CallbackTour;
+import BLL.GiaoDienTourBLL;
+import DAO.GiaoDienTourDAO;
 import DTO.Tour;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,17 +22,26 @@ import static java.awt.image.ImageObserver.HEIGHT;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -42,7 +52,7 @@ import javax.swing.border.EmptyBorder;
  * @author ADMIN
  */
 public class FormGiaoDienTour extends javax.swing.JFrame {
-    
+
     ArrayList<Tour> dstour = new ArrayList<>();
     
     /**
@@ -51,59 +61,146 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
     public FormGiaoDienTour() {
         initComponents();
         setLocationRelativeTo(this);
+        getListour();
         hienthitour();
-        listDiemDi();
-        listDiemDen();
+        loadcombobox();
         listGiaTien();
+        test1();
+
     }
-    
-    public void listDiemDi(){
-        listDiemDi.removeAllItems();
-        listDiemDi.addItem("Hà nội");
-        listDiemDi.addItem("Quảng Ninh");
-        listDiemDi.addItem("Nghệ An");
-        listDiemDi.addItem("Đà Nẵng");
-        listDiemDi.addItem("Phú Quốc");
+    public void test1(){
+        calendar.setDateFormatString("yyyy-MM-dd");
+        try {
+            java.util.Date date = calendar.getDate();
+            String string  = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        } catch (NullPointerException e) {
+            test();
+        }
+        
     }
-    public void listDiemDen(){
-        listDiemDen.removeAllItems();
-        listDiemDen.addItem("Hà nội");
-        listDiemDen.addItem("Quảng Ninh");
-        listDiemDen.addItem("Nghệ An");
-        listDiemDen.addItem("Đà Nẵng");
-        listDiemDen.addItem("Phú Quốc");
+    public void test() {
+        Calendar lich = new GregorianCalendar();
+        String ngay = lich.get(Calendar.DAY_OF_MONTH) + "";
+        String thang = lich.get(Calendar.MONTH) + "";
+        String nam = lich.get(Calendar.YEAR) + "";
+        if (ngay.length() == 1) {
+            ngay = "0" + ngay;
+        }
+        if (thang.length() == 1) {
+            thang = "0" + thang;
+        }
+        String string = nam + "-" + thang + "-" + ngay;
+
+        try {
+            java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(string);
+            
+            calendar.setDate(date);
+
+        } catch (ParseException ex) {
+            Logger.getLogger(FormGiaoDienTour.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
-    public void listGiaTien(){
+
+    public void listGiaTien() {
         listGiaTien.removeAllItems();
+        listGiaTien.addItem("--Chọn giá tiền--");
         listGiaTien.addItem("500.000 VNĐ - 1.000.000 VNĐ");
         listGiaTien.addItem("1.000.000 VNĐ - 3.000.000 VNĐ");
         listGiaTien.addItem("3.000.000 VNĐ - 5.000.000 VNĐ");
         listGiaTien.addItem("5.000.000 VNĐ - 10.000.000 VNĐ");
         listGiaTien.addItem("10.000.000 trở lên ");
     }
+
+    public void loadcombobox() {
+        DefaultComboBoxModel diemdi = new DefaultComboBoxModel();
+        DefaultComboBoxModel diemden = new DefaultComboBoxModel();
+        GiaoDienTourBLL.getInstance().LoadComboboxDiemXuatPhat(diemdi);
+        GiaoDienTourBLL.getInstance().LoadComboboxDiadiem(diemden);
+        listDiemDi.setModel(diemdi);
+        listDiemDen.setModel(diemden);
+    }
+
+    public void getListour() {
+        dstour.clear();
+        GiaoDienTourBLL.getInstance().getListTourKhuyenMai(dstour);
+        dstour.add(dstour.get(0));
+        dstour.add(dstour.get(0));
+        dstour.add(dstour.get(0));
+        
+
+    }
+
+    public void getListtourSearch() {
+        String diemdi = null, diemden = null;
+        boolean kt = true;
+        int min = 0, max = 0;
+        if (listDiemDi.getSelectedIndex() != 0) {
+            diemdi = listDiemDi.getSelectedItem().toString();
+        } else {
+            kt = false;
+        }
+        if (listDiemDen.getSelectedIndex() != 0) {
+            diemden = listDiemDen.getSelectedItem().toString();
+        } else {
+            kt = false;
+        }
+        switch (listGiaTien.getSelectedIndex()) {
+            case 0:
+                kt = false;
+                break;
+            case 1:
+                min = 500000;
+                max = 1000000;
+                break;
+            case 2:
+                min = 1000000;
+                max = 3000000;
+                break;
+            case 3:
+                min = 300000;
+                max = 5000000;
+                break;
+            case 4:
+                min = 500000;
+                max = 10000000;
+                break;
+            case 5:
+                min = 10000000;
+                max = 1000000000;
+                break;
+
+        }
+
+        if (kt) {
+            GiaoDienTourBLL.getInstance().getListTourSearch(dstour, diemdi, diemden, max, min);
+        }
+
+    }
+
     public void hienthitour() {
-        
-        
+
         int col = 3;
-        
+
         listTour.removeAll();
         listTour.revalidate();
-        
-        listTour.setLayout(new GridLayout(10 / 3 + 1, col, -1, -1));
+
+        listTour.setLayout(new GridLayout(dstour.size() / 3 + 1, col, -1, -1));
         listTour.setBorder(BorderFactory.createLineBorder(Color.yellow));
-        
-        for (int i = 0; i < 10; i++) {
+
+        for (int i = 0; i < dstour.size(); i++) {
             int vitri = i;
             final JPanel p = new JPanel();
+            p.setMaximumSize(new Dimension(10, 10));
             p.setBorder(BorderFactory.createLineBorder(Color.yellow));
             p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-            
-            JLabel lbl = new JLabel("Hà nội - Nha Trang Hà nội - Nha Trang ");
+
+            JLabel lbl = new JLabel(dstour.get(i).getTentour());
             lbl.setLayout(null);
             lbl.setFont(new Font("Serif", Font.BOLD, 18));
             lbl.setHorizontalAlignment(JLabel.CENTER);
             p.add(lbl);
-            
+
             JLabel labelImage = new JLabel();
             labelImage.setHorizontalAlignment(JLabel.CENTER);
             p.add(labelImage);
@@ -115,43 +212,54 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
                 Logger.getLogger(this.getName()).log(Level.SEVERE, null, ex);
             }
             p.add(labelImage);
-            
-            JLabel lbgia = new JLabel("Giá: 1.000.000");
-            lbgia.setHorizontalAlignment(JLabel.CENTER);
-            p.add(lbgia);
-            
+
+            JPanel bottom1 = new JPanel();
+            bottom1.setLayout(new BoxLayout(bottom1, BoxLayout.X_AXIS));
+            bottom1.setAlignmentX(Component.LEFT_ALIGNMENT);
+            bottom1.add(Box.createRigidArea(new Dimension(20, 0)));
+            JLabel lbgia = new JLabel("Gia :" + dstour.get(i).getGiatour() + " VND");
+            bottom1.add(lbgia);
+            if (dstour.get(i).getKhuyenmai() != 0) {
+                JLabel lbkm = new JLabel("  (-" + dstour.get(i).getKhuyenmai() + "%)");
+                lbkm.setForeground(Color.RED);
+                bottom1.add(lbkm);
+            }
+
+            p.add(bottom1);
+
             JPanel bottom = new JPanel();
             bottom.setLayout(new BoxLayout(bottom, BoxLayout.X_AXIS));
             bottom.setAlignmentX(Component.LEFT_ALIGNMENT);
             bottom.add(Box.createRigidArea(new Dimension(20, 0)));
             JButton btn1 = new JButton("Chi tiết");
             JButton btn2 = new JButton("Đặt");
-            
+
             btn1.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     FormChiTietTour formChiTietTour = new FormChiTietTour();
-                    formChiTietTour.getThongTinTour("HNQN001");
+                    formChiTietTour.getThongTinTour(dstour.get(vitri).getMatour());
+                    formChiTietTour.setNgayKhoihanh(calendar.getDate());
+                    formChiTietTour.hienthilichtrinh(dstour.get(vitri).getMatour());
                     formChiTietTour.setVisible(true);
                     setVisible(false);
-                    
+
                 }
             });
             btn2.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    FormDangKyTour formDangKyTour  = new FormDangKyTour();
+                    FormDangKyTour formDangKyTour = new FormDangKyTour();
                     formDangKyTour.setVisible(true);
                     setVisible(false);
                 }
             });
             bottom.add(btn1);
             bottom.add(btn2);
-            
+
             p.add(bottom);
             listTour.add(p);
-            
-            
+
         }
     }
 
@@ -165,13 +273,13 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btntimkiem = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         listDiemDen = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         listGiaTien = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        calendar = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
         listDiemDi = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
@@ -185,7 +293,12 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(150, 238, 238));
 
-        jButton1.setText("TÌm kiếm");
+        btntimkiem.setText("TÌm kiếm");
+        btntimkiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btntimkiemActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("Điểm đến :");
@@ -233,7 +346,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(calendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
@@ -245,7 +358,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
                                     .addComponent(listGiaTien, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(105, 105, 105)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btntimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -266,9 +379,9 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(calendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btntimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(132, Short.MAX_VALUE))
         );
 
@@ -369,6 +482,13 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_listDiemDiActionPerformed
 
+    private void btntimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntimkiemActionPerformed
+        dstour.clear();
+        getListtourSearch();
+        hienthitour();
+        
+    }//GEN-LAST:event_btntimkiemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -406,9 +526,9 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btntimkiem;
+    private com.toedter.calendar.JDateChooser calendar;
     private javax.swing.JButton jButton2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
