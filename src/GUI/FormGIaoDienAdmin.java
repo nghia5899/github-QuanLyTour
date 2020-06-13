@@ -5,6 +5,9 @@
  */
 package GUI;
 
+import BLL.TaiKhoanBLL;
+import DTO.taikhoan;
+
 /**
  *
  * @author ADMIN
@@ -34,7 +37,7 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lbtk = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton11 = new javax.swing.JButton();
 
@@ -78,7 +81,7 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Quang Nghĩa");
+        lbtk.setText("none");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Tài khoản:");
@@ -96,10 +99,10 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(743, Short.MAX_VALUE)
+                .addContainerGap(734, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(lbtk, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
             .addGroup(layout.createSequentialGroup()
                 .addGap(165, 165, 165)
@@ -120,7 +123,7 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(lbtk)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -215,7 +218,7 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel lbtk;
     // End of variables declaration//GEN-END:variables
 }

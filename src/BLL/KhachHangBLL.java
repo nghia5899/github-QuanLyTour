@@ -31,10 +31,8 @@ public class KhachHangBLL {
     }
 
     public void getKhachHang(ArrayList<KhachHang> list) {
-        ResultSet rs = KhachHangDAO.getInstance().GetListKhachHang();
-       
-        KhachHangDAO hd = KhachHangDAO.getInstance();
-        
+        ResultSet rs = KhachHangDAO.getInstance().GetListKhachHang();       
+        KhachHangDAO hd = KhachHangDAO.getInstance();        
         try {
             while (rs.next()) {
                 KhachHang khachhang = new KhachHang(rs.getString("makhachhang"), rs.getString("tenkhachhang"), rs.getInt("gioitinh"),
