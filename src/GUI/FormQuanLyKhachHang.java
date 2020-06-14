@@ -6,10 +6,8 @@
 package GUI;
 
 import DTO.KhachHang;
-import DAO.KhachHangDAO;
 import BLL.KhachHangBLL;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import jdk.nashorn.internal.scripts.JO;
 
 /**
  *
@@ -53,7 +50,6 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
         lblBack = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbQuanLyKhach = new javax.swing.JTable();
-        lblHeader = new javax.swing.JLabel();
         lblPhone = new javax.swing.JLabel();
         txtDiaChi = new javax.swing.JTextField();
         txtDiDong = new javax.swing.JTextField();
@@ -63,7 +59,6 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
         lblName = new javax.swing.JLabel();
         lblID = new javax.swing.JLabel();
         btnSua = new javax.swing.JButton();
-        btnXoa = new javax.swing.JButton();
         lbTrang = new javax.swing.JLabel();
         btnTim = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -74,6 +69,7 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
         rdNu = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         dcNgaySinh = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Quản Lý Khách Hàng");
@@ -100,9 +96,6 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbQuanLyKhach);
 
-        lblHeader.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblHeader.setText("Quản Lý Khách Hàng");
-
         lblPhone.setText("Di Động");
 
         lblAddress.setText("Địa chỉ");
@@ -115,13 +108,6 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
-            }
-        });
-
-        btnXoa.setText("Xoá");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
             }
         });
 
@@ -154,6 +140,9 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
 
         dcNgaySinh.setDateFormatString("yyyy-MM-dd");
 
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        jLabel3.setText("Quản lý khách hàng");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,9 +167,7 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
                                                     .addComponent(lblID))
                                                 .addGap(0, 0, Short.MAX_VALUE))
                                             .addComponent(btnSua, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnXoa)
-                                        .addGap(18, 18, 18)
+                                        .addGap(91, 91, 91)
                                         .addComponent(btnTim))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,39 +209,39 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addGap(20, 20, 20)
                         .addComponent(lblBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(300, 300, 300)
-                        .addComponent(lblHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblBack, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblID)
-                                .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblName)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rdNam, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rdNu)
-                                    .addComponent(jLabel2))))
-                        .addGap(26, 26, 26)
+                            .addComponent(jButton1)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblID)
+                        .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblName)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtDiDong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPhone)
-                            .addComponent(lblAddress)
-                            .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblHeader))
+                            .addComponent(txtTenKhach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdNam, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdNu)
+                            .addComponent(jLabel2))))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDiDong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPhone)
+                    .addComponent(lblAddress)
+                    .addComponent(txtDiaChi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -265,9 +252,8 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSua)
-                    .addComponent(btnXoa)
                     .addComponent(btnTim))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbTrang)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -353,26 +339,6 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSuaActionPerformed
     
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
-        String maKhachHang = txtMaKH.getText();
-        if(maKhachHang.equals("")){
-            JOptionPane.showMessageDialog(rootPane, "Trường Mã Khách không được để trống");
-        }
-        if (KhachHangDAO.getInstance().KiemTraKhoaNgoai(maKhachHang)) {
-            if (JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xoá toàn bộ thông tin của khách này từ mọi bảng không?", "Thông Báo", 0, JOptionPane.YES_NO_OPTION) == 0) {
-                KhachHangBLL.getInstance().Delete(maKhachHang);
-                JOptionPane.showMessageDialog(rootPane, "Xoá thành công!");
-
-            }
-        } else {
-            KhachHangBLL.getInstance().Delete(maKhachHang);
-            JOptionPane.showMessageDialog(rootPane, "Xoá thành công!");
-        }
-        list.clear();
-        hienthi();
-    }//GEN-LAST:event_btnXoaActionPerformed
-
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
         // TODO add your handling code here:
         String maKhachHang = txtMaKH.getText();
@@ -442,17 +408,16 @@ public class FormQuanLyKhachHang extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnTim;
-    private javax.swing.JButton btnXoa;
     private com.toedter.calendar.JDateChooser dcNgaySinh;
     private javax.swing.ButtonGroup groupgiotinh;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbTrang;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblBack;
-    private javax.swing.JLabel lblHeader;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPhone;
