@@ -20,6 +20,7 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
     public FormGIaoDienAdmin() {
         initComponents();
         setLocationRelativeTo(this);
+        this.lbtk.setText(FormDangNhap.taikhoan);
     }
 
     /**
@@ -81,7 +82,7 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
         lbtk.setText("none");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setText("Tài khoản:");
+        jLabel2.setText("Welcome tài khoản:");
 
         jButton11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jButton11.setText("Quản lý đặt tour");
@@ -101,7 +102,7 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbtk, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)

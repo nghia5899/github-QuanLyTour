@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class FormDangNhap extends javax.swing.JFrame {
     DefaultTableModel model;
     ArrayList<taikhoan> list = new ArrayList<>();
+    public static String taikhoan;
     /**
      * Creates new form FormDangNhap
      */
@@ -151,6 +152,7 @@ public class FormDangNhap extends javax.swing.JFrame {
             }else{
                 if(mk.equals(pass)){
                 JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công!");
+                taikhoan = txttendangnhap.getText();
                 new FormGIaoDienAdmin().setVisible(true);
                 this.dispose();
                 }else    JOptionPane.showMessageDialog(rootPane, "Sai mật khẩu");            
