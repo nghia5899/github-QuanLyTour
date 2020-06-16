@@ -24,19 +24,34 @@ public class TaiKhoanDAO {
         return instance;
     }
     
-    public ArrayList<taikhoan> getlisttaikhoan(){
-        ArrayList<taikhoan> list = new ArrayList<>();        
+public ArrayList<taikhoan> laylist(){
+    String sql="Select * From taikhoan";
+    ArrayList<taikhoan> list =new ArrayList<>();
+    ResultSet rs = DataProvider.getInstance().GetData(sql);
         try {
-            ResultSet rs = DataProvider.getInstance().GetData("Select * From taikhoan");
             while(rs.next()){
-                taikhoan tk = new taikhoan();
-                tk.setTendangnhap(rs.getString("tendangnhap"));
-                tk.setMatkhau(rs.getString("matkhau"));
-                list.add(tk);
-            }
-        } catch (SQLException ex) {
+                taikhoan t = new taikhoan();
+                t.setTendangnhap(rs.getString("tendangnhap"));
+                t.setMatkhau(rs.getString("matkhau"));
+                t.setLoaitaikhoan(rs.getString("loaitaikhoan"));
+                list.add(t);
+            }   } catch (SQLException ex) {
             Logger.getLogger(TaiKhoanDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return list;
-    }
+    return list;
+}
+public boolean taikhoansql(String sql){
+    int result = 0;
+        
+        try {
+            Statement pre = DataProvider.getInstance().getConnection().createStatement();          
+                result = pre.executeUpdate(sql);
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result > 0;
+}
+public ResultSet taikhoantim(String sql){
+        return DataProvider.getInstance().GetData(sql);
+}
 }

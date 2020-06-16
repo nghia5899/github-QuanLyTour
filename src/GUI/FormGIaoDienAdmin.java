@@ -21,6 +21,7 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         this.lbtk.setText(FormDangNhap.taikhoan);
+        check();
     }
 
     /**
@@ -32,68 +33,77 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btntour = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        btnkhuyenmai = new javax.swing.JButton();
+        btnthongke = new javax.swing.JButton();
+        btnkhachhang = new javax.swing.JButton();
         lbtk = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton11 = new javax.swing.JButton();
+        btndattour = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnquanlytaikhoan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setText("Quản lý Tour");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btntour.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btntour.setText("Quản lý Tour");
+        btntour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btntourActionPerformed(evt);
             }
         });
 
         jButton7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton7.setText("Thoát");
+        jButton7.setText("Quay Lại");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
             }
         });
 
-        jButton8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton8.setText("Quản lý khuyến mãi");
+        btnkhuyenmai.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnkhuyenmai.setText("Quản lý khuyến mãi");
 
-        jButton9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton9.setText("Thống kê");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        btnthongke.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnthongke.setText("Thống kê");
+        btnthongke.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                btnthongkeActionPerformed(evt);
             }
         });
 
-        jButton10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton10.setText("Quản lý khách hàng");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        btnkhachhang.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnkhachhang.setText("Quản lý khách hàng");
+        btnkhachhang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                btnkhachhangActionPerformed(evt);
             }
         });
 
         lbtk.setText("none");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setText("Welcome tài khoản:");
+        jLabel2.setText("Welcome :");
 
-        jButton11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton11.setText("Quản lý đặt tour");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        btndattour.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btndattour.setText("Quản lý đặt tour");
+        btndattour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                btndattourActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Quản lý chức năng");
+
+        btnquanlytaikhoan.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        btnquanlytaikhoan.setText("Quản lý tài khoản");
+        btnquanlytaikhoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnquanlytaikhoanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,6 +111,8 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -110,14 +122,14 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(166, 166, 166)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnquanlytaikhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btntour, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnkhuyenmai, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(141, 141, 141)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnkhachhang, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btndattour, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnthongke, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(156, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -125,36 +137,52 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbtk)
-                            .addComponent(jLabel2))
-                        .addGap(87, 87, 87))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbtk)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton7)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btntour, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnkhachhang, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btndattour, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnkhuyenmai, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnthongke, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnquanlytaikhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(120, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+    private void check(){
+        String loai = FormDangNhap.loaitaikhoan;
+        if(loai.equals("Marketing")){            
+            btntour.setEnabled(true);
+            btnkhuyenmai.setEnabled(true);
+            btnquanlytaikhoan.setEnabled(false);
+            btnthongke.setEnabled(false);
+            btndattour.setEnabled(false);
+            btnkhachhang.setEnabled(false);
+        }else if(loai.equals("Support Customer")){
+            btndattour.setEnabled(true);
+            btnkhachhang.setEnabled(true);
+            btnthongke.setEnabled(true);
+            btntour.setEnabled(false);
+            btnkhuyenmai.setEnabled(false);
+            btnquanlytaikhoan.setEnabled(false);
+        }
+    }
+    private void btnkhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnkhachhangActionPerformed
         FormQuanLyKhachHang formQuanLyKhachHang = new FormQuanLyKhachHang();
         formQuanLyKhachHang.setVisible(true);
         setVisible(false);
-    }//GEN-LAST:event_jButton10ActionPerformed
+    }//GEN-LAST:event_btnkhachhangActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         FormDangNhap formDangNhap = new FormDangNhap();
@@ -162,23 +190,29 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
         setVisible(false);
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btntourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btntourActionPerformed
         FormQuanLyTour formQuanLyTour = new FormQuanLyTour();
         formQuanLyTour.setVisible(true);
         setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btntourActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void btnthongkeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthongkeActionPerformed
         FormThongKe formThongKe = new FormThongKe();
         formThongKe.setVisible(true);
         setVisible(false);
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_btnthongkeActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+    private void btndattourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndattourActionPerformed
         FormQuanLiDatTour formQuanLiDatTour = new FormQuanLiDatTour();
         formQuanLiDatTour.setVisible(true);
         setVisible(false);
-    }//GEN-LAST:event_jButton11ActionPerformed
+    }//GEN-LAST:event_btndattourActionPerformed
+
+    private void btnquanlytaikhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnquanlytaikhoanActionPerformed
+        // TODO add your handling code here:
+        new FormQuanLyTaiKhoan().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnquanlytaikhoanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,12 +250,13 @@ public class FormGIaoDienAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
+    private javax.swing.JButton btndattour;
+    private javax.swing.JButton btnkhachhang;
+    private javax.swing.JButton btnkhuyenmai;
+    private javax.swing.JButton btnquanlytaikhoan;
+    private javax.swing.JButton btnthongke;
+    private javax.swing.JButton btntour;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbtk;
