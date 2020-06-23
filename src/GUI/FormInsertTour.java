@@ -6,6 +6,7 @@
 package GUI;
 
 import DAO.DataProvider;
+import DAO.LichtrinhDAO;
 import DAO.TourDAO;
 import DTO.Tour;
 import java.io.BufferedInputStream;
@@ -269,7 +270,8 @@ public class FormInsertTour extends javax.swing.JFrame {
 
                 Tour t = new Tour(matour, tentour, diemxp, diadiem, dichvu, diemdl, tgtour, giatour,makm);
                 TourDAO tourdao = new TourDAO();
-                tourdao.Insert(t);
+                if(tourdao.Insert(t)>0)
+                    LichtrinhDAO.getInstance().themlichtrinh(matour);
                 System.out.println(tourdao.Insert(t));
                 NumberAddSs++;
             }
