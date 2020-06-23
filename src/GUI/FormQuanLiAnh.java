@@ -24,6 +24,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -38,8 +39,8 @@ public class FormQuanLiAnh extends javax.swing.JFrame {
     int dau=0,cuoi=3;
     public FormQuanLiAnh() {
         initComponents();
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLocationRelativeTo(this);
-        dispose();
         
     }
     public int taosize(int cuoi){
@@ -137,6 +138,14 @@ public class FormQuanLiAnh extends javax.swing.JFrame {
         txtMatour = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         title.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         title.setText("Quản lí ảnh ");
@@ -258,6 +267,14 @@ public class FormQuanLiAnh extends javax.swing.JFrame {
         khunganh.removeAll();
         hienthianh(matour);
     }//GEN-LAST:event_btnbackActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
