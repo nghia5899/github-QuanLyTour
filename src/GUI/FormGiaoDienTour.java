@@ -6,25 +6,17 @@
 package GUI;
 
 import BLL.GiaoDienTourBLL;
-import DAO.GiaoDienTourDAO;
 import DTO.Tour;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import static java.awt.image.ImageObserver.HEIGHT;
-import static java.awt.image.ImageObserver.WIDTH;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,13 +31,8 @@ import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
-import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -54,7 +41,7 @@ import javax.swing.border.EmptyBorder;
 public class FormGiaoDienTour extends javax.swing.JFrame {
 
     ArrayList<Tour> dstour = new ArrayList<>();
-    
+
     /**
      * Creates new form FormQuanLyKhachHang
      */
@@ -68,16 +55,18 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
         test1();
 
     }
-    public void test1(){
+
+    public void test1() {
         calendar.setDateFormatString("yyyy-MM-dd");
         try {
             java.util.Date date = calendar.getDate();
-            String string  = new SimpleDateFormat("yyyy-MM-dd").format(date);
+            String string = new SimpleDateFormat("yyyy-MM-dd").format(date);
         } catch (NullPointerException e) {
             test();
         }
-        
+
     }
+
     public void test() {
         Calendar lich = new GregorianCalendar();
         String ngay = lich.get(Calendar.DAY_OF_MONTH) + "";
@@ -93,7 +82,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
 
         try {
             java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(string);
-            
+
             calendar.setDate(date);
 
         } catch (ParseException ex) {
@@ -124,30 +113,22 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
     public void getListour() {
         dstour.clear();
         GiaoDienTourBLL.getInstance().getListTourKhuyenMai(dstour);
-        dstour.add(dstour.get(0));
-        dstour.add(dstour.get(0));
-        dstour.add(dstour.get(0));
-        
 
     }
 
     public void getListtourSearch() {
         String diemdi = null, diemden = null;
-        boolean kt = true;
         int min = 0, max = 0;
         if (listDiemDi.getSelectedIndex() != 0) {
             diemdi = listDiemDi.getSelectedItem().toString();
         } else {
-            kt = false;
         }
         if (listDiemDen.getSelectedIndex() != 0) {
             diemden = listDiemDen.getSelectedItem().toString();
         } else {
-            kt = false;
         }
         switch (listGiaTien.getSelectedIndex()) {
             case 0:
-                kt = false;
                 break;
             case 1:
                 min = 500000;
@@ -158,11 +139,11 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
                 max = 3000000;
                 break;
             case 3:
-                min = 300000;
+                min = 3000000;
                 max = 5000000;
                 break;
             case 4:
-                min = 500000;
+                min = 5000000;
                 max = 10000000;
                 break;
             case 5:
@@ -172,9 +153,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
 
         }
 
-        if (kt) {
-            GiaoDienTourBLL.getInstance().getListTourSearch(dstour, diemdi, diemden, max, min);
-        }
+        GiaoDienTourBLL.getInstance().getListTourSearch(dstour, diemdi, diemden, max, min);
 
     }
 
@@ -205,7 +184,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
             labelImage.setHorizontalAlignment(JLabel.CENTER);
             p.add(labelImage);
             try {
-                BufferedImage image = ImageIO.read(new File("dulich.jpg"));
+                BufferedImage image = ImageIO.read(new File(dstour.get(i).getAnhchinh()));
                 ImageIcon icon = new ImageIcon(image.getScaledInstance(200, 100, image.SCALE_SMOOTH));
                 labelImage.setIcon(icon);
             } catch (IOException ex) {
@@ -240,6 +219,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
                     FormChiTietTour formChiTietTour = new FormChiTietTour();
                     formChiTietTour.getThongTinTour(dstour.get(vitri).getMatour());
                     formChiTietTour.setNgayKhoihanh(calendar.getDate());
+                    formChiTietTour.hienthilistanh();
                     formChiTietTour.hienthilichtrinh(dstour.get(vitri).getMatour());
                     formChiTietTour.setVisible(true);
                     setVisible(false);
@@ -486,7 +466,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
         dstour.clear();
         getListtourSearch();
         hienthitour();
-        
+
     }//GEN-LAST:event_btntimkiemActionPerformed
 
     /**

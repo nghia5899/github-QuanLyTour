@@ -25,11 +25,11 @@ public class DangKyTourDAO {
         return instance;
     }
     
-    public boolean insertdangky(Tour tour,KhachHang khachHang ,String ngaykhoihanh,int songuoilon,int sotreem){
+    public boolean insertdangky(Tour tour,String madatour,KhachHang khachHang,String ngayhientai ,String ngaykhoihanh,int songuoilon,int sotreem,int tongtien){
         int result = 0;
         
         
-        String query = "insert into tourdabook values ('HNQNLQN20206081','"+tour.getMatour()+"','"+khachHang.getMakhachhang()+"','"+ngaykhoihanh+"',"+songuoilon+","+sotreem+")";
+        String query = "insert into tourdabook values ('"+madatour+"','"+tour.getMatour()+"','"+khachHang.getMakhachhang()+"','"+ngayhientai+"','"+ngaykhoihanh+"',"+songuoilon+","+sotreem+","+tongtien+")";
         
         try {
             Statement pre = DataProvider.getInstance().getConnection().createStatement(); 

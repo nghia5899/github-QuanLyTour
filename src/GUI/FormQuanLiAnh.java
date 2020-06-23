@@ -10,7 +10,6 @@ import DTO.Anh;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.FlowLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -35,21 +34,36 @@ import javax.swing.JPanel;
  */
 public class FormQuanLiAnh extends javax.swing.JFrame {
     ArrayList<Anh> listanh = new ArrayList<>();
-    
-    
+    String matour;
+    int dau=0,cuoi=3;
     public FormQuanLiAnh() {
         initComponents();
         setLocationRelativeTo(this);
-        hienthianh(listanh);
+        
         
     }
-    public void hienthianh(ArrayList<Anh> listanh){
-        AnhBLL.getInstance().getListanh(listanh, "HNQN001");
-            khunganh.removeAll();
-            khunganh.revalidate();
-            khunganh.setLayout(new FlowLayout());
+    public int taosize(int cuoi){
+        if(listanh.size()<=cuoi){
+            return listanh.size();
+        }else
+            return cuoi;
+    }
+    public void hienthianh(String matour){
+        this.matour = matour;
+        txtMatour.setText(matour);
+        //khunganh.removeAll();
+        khunganh.revalidate();
+        khunganh.repaint();
+        khunganh.setLayout(new FlowLayout());
         
-        for (int i = 0; i < listanh.size(); i++) {
+        try {
+            AnhBLL.getInstance().getListanh(listanh, matour);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(rootPane, "Không có ảnh nào");
+        }
+        
+        
+        for (int i = dau; i < taosize(cuoi); i++) {
             int vitri = i;
             final JPanel p = new JPanel();
             p.setBorder(BorderFactory.createLineBorder(Color.yellow));
@@ -70,7 +84,9 @@ public class FormQuanLiAnh extends javax.swing.JFrame {
             btnxoa.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(rootPane, vitri);
                     AnhBLL.getInstance().Xoaanh(listanh.get(vitri).getMaanh());
+                    hienthianh(matour);
                 }
             });
             p.add(btnxoa);
@@ -86,11 +102,21 @@ public class FormQuanLiAnh extends javax.swing.JFrame {
         int kt =  fileChooser.showOpenDialog(this);
         if(kt == JFileChooser.APPROVE_OPTION){
             java.io.File file = fileChooser.getSelectedFile();
-            AnhBLL.getInstance().ThemAnh("HNQN001", file.getAbsolutePath());
-            JOptionPane.showMessageDialog(rootPane,file.getAbsoluteFile());
+            if(AnhBLL.getInstance().ThemAnh("HNQN001", xulilinkanh(file.getAbsolutePath())))
+                JOptionPane.showMessageDialog(rootPane,"Thêm thành ảnh công");
         }
         
         
+    }
+    public  String xulilinkanh(String linkanh){
+        StringBuilder stringBuilder = new StringBuilder();
+        String mang[] = linkanh.trim().split("\\\\+");
+        for(int i=0;i < mang.length;i++){
+            stringBuilder.append(mang[i]);
+            if(i< mang.length-1)
+                stringBuilder.append("\\\\\\\\");
+        }
+        return stringBuilder.toString();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,11 +131,15 @@ public class FormQuanLiAnh extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         khunganh = new javax.swing.JPanel();
         btnthem = new javax.swing.JButton();
+        btnback = new javax.swing.JButton();
+        btnnext = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtMatour = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         title.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        title.setText("Quản lí ảnh và lịch trình");
+        title.setText("Quản lí ảnh ");
 
         khunganh.setPreferredSize(new java.awt.Dimension(968, 230));
 
@@ -133,32 +163,70 @@ public class FormQuanLiAnh extends javax.swing.JFrame {
             }
         });
 
+        btnback.setText("<");
+        btnback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbackActionPerformed(evt);
+            }
+        });
+
+        btnnext.setText(">");
+        btnnext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnextActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel2.setText("Mã tour :");
+
+        txtMatour.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        txtMatour.setText("HNQN01");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(71, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 971, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
             .addGroup(layout.createSequentialGroup()
+                .addGap(181, 181, 181)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(376, 376, 376)
-                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(181, 181, 181)
-                        .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addGap(34, 34, 34)
+                        .addComponent(txtMatour))
+                    .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(749, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnback)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnnext))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 971, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(56, 56, 56))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(359, 359, 359))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(27, 27, 27)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtMatour))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnback, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnnext, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(77, 77, 77))
         );
@@ -168,9 +236,28 @@ public class FormQuanLiAnh extends javax.swing.JFrame {
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         showFileJFilechooser();
-        hienthianh(listanh);
+        hienthianh(matour);
         JOptionPane.showMessageDialog(rootPane,listanh.size());
     }//GEN-LAST:event_btnthemActionPerformed
+
+    private void btnnextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnextActionPerformed
+        // TODO add your handling code here:
+        if (cuoi<listanh.size()) {
+            dau+=3;
+            cuoi+=3;
+        }
+        khunganh.removeAll();
+        hienthianh(matour);
+    }//GEN-LAST:event_btnnextActionPerformed
+
+    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
+        if (dau >=3) {
+            dau-=3;
+            cuoi-=3;
+        }
+        khunganh.removeAll();
+        hienthianh(matour);
+    }//GEN-LAST:event_btnbackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,9 +296,13 @@ public class FormQuanLiAnh extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnback;
+    private javax.swing.JButton btnnext;
     private javax.swing.JButton btnthem;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel khunganh;
     private javax.swing.JLabel title;
+    private javax.swing.JLabel txtMatour;
     // End of variables declaration//GEN-END:variables
 }

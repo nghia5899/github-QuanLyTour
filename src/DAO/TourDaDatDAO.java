@@ -31,7 +31,7 @@ public class TourDaDatDAO {
     
     public ResultSet GetListTour()
     {
-        return DataProvider.getInstance().GetData("SELECT `madanhsach`, `tentour`, `ngaykhoihanh`, `ngaydattour`, `tenkhachhang`, `sodienthoai`, `gmail`,`songuoilon`,`sotreem`,`tongtien`, khachhang.makhachhang \n" +
+        return DataProvider.getInstance().GetData("SELECT `madanhsach`, `tentour`, `ngaykhoihanh`, `ngaydattour`, `tenkhachhang`, `sodienthoai`, `gmail`,`songuoilon`,`sotreem`,`tongtien`, khachhang.makhachhang , tour.matour \n" +
 "FROM `tourdabook` INNER JOIN khachhang on tourdabook.makhachhang = khachhang.makhachhang INNER JOIN tour on tour.matour = tourdabook.matour ");
     }
     
@@ -43,10 +43,11 @@ public class TourDaDatDAO {
             Statement pre = DataProvider.getInstance().getConnection().createStatement();
             Statement pre1 = DataProvider.getInstance().getConnection().createStatement();
             result1 = pre1.executeUpdate(query1);
+            result = pre.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(KhachHangDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return result > 0;
+        return result > 0&& result1>0;
     }
     
     public boolean XoatourDaDat(TourDaDat tour){
@@ -72,5 +73,9 @@ public class TourDaDatDAO {
             Logger.getLogger(TourDaDatDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return result>0;
+    }
+    public ResultSet GetGiaTour(String matour){
+        
+        return DataProvider.getInstance().GetData("select giatour from tour where matour = '"+matour+"'");
     }
 }

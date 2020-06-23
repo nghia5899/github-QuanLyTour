@@ -39,10 +39,33 @@ public class GiaoDienTourDAO {
     
     public ResultSet getListSearch(String diemdi,String diemden,int giatourmax, int giatoumin){
         String sql = "SELECT matour,tentour,giatour,phantram FROM tour INNER JOIN khuyenmai  "
-                    + "ON tour.makhuyenmai = khuyenmai.makhuyenmai WHERE diadiem = '"+diemden+"' AND	"
-                     + " diemxuatphat = '"+diemdi+"' and giatour >= "+giatoumin+" AND giatour <= "+giatourmax+"";
-        return DataProvider.getInstance().GetData("SELECT matour,tentour,giatour,phantram FROM tour INNER JOIN khuyenmai  "
-                    + "ON tour.makhuyenmai = khuyenmai.makhuyenmai WHERE diadiem = '"+diemden+"' AND	"
-                     + " diemxuatphat = '"+diemdi+"' and giatour >= "+giatoumin+" AND giatour <= "+giatourmax+"") ;
+                    + "ON tour.makhuyenmai = khuyenmai.makhuyenmai where ";
+        StringBuilder dieukien = new StringBuilder();
+        int dem=0;
+        if(diemden!=null||diemdi!=null||giatourmax!=0){
+            dieukien.append(sql);
+            if(diemden!=null){
+                if(dem>0)
+                    dieukien.append(" and ");
+                dieukien.append("diadiem = '"+diemden+"'");
+                dem++;
+            }
+            if(diemdi!=null){
+                if(dem>0)
+                    dieukien.append(" and ");
+                dieukien.append(" diemxuatphat = '"+diemdi+"'");
+                dem++;
+            }
+            if (giatourmax!=0) {
+                if(dem>0)
+                    dieukien.append(" and ");
+                dieukien.append(" giatour >= "+giatoumin+" AND giatour <= "+giatourmax+"");
+                dem++;
+            }
+        }else{
+             return getListTourKhuyenMai();
+        }
+        
+        return DataProvider.getInstance().GetData(dieukien.toString()) ;
     }
 }

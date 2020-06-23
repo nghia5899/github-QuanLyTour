@@ -49,15 +49,23 @@ public class FormDangKyTour extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         capnhatngay();
-        tinhtongtien();
  //       getThongTinTour(tour.getMatour());
     }
 
    
-    public void setNgayKhoihang(java.util.Date date){
-        String string  = new SimpleDateFormat("yyyy-MM-dd").format(date);
+    public void setNgayKhoihanh(java.util.Date date){
+        String string =null;
+        try {
+            string  = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Hãy nhập ngày");
+        }
+
         txtkhoihanh.setText(string);
     }
+    
+     
+   
     public boolean kiemsoatform(){
         boolean kiemtra = true;
         String ngaysinh = null;
@@ -96,7 +104,7 @@ public class FormDangKyTour extends javax.swing.JFrame {
         if (!txtdiachi.getText().equals("")) {
             tbdiachi.setText("");
         } else {
-            tbdiachi.setText("Nhập sai gmail !");
+            tbdiachi.setText("Nhập sai dia chi !");
             kiemtra = false;
         }
             
@@ -127,21 +135,55 @@ public class FormDangKyTour extends javax.swing.JFrame {
 
     }
     
-    public void taoma(String matourdabook,String makhachhang){
+    public String taomakhachhang(){
             StringBuilder makh = new StringBuilder() ;
             String tenkhach = txtTenKhach.getText();
             String mang[] = tenkhach.trim().split("\\s+");
             for(String s: mang){
                 makh.append(s.charAt(0));
             }
-            makhachhang = makh.toString();
+            String ngaysinh = null;
+            try {
+                java.util.Date date = txtngaysinh.getDate();
+                ngaysinh  = new SimpleDateFormat("yyyy-MM-dd").format(date);
+            } catch (NullPointerException e) {}
             
-            StringBuilder matourbook = new StringBuilder();
-            matourbook.append(txtMatour.getText());
-            matourbook.append(makhachhang);
-            matourbook.append(txtkhoihanh.getText());
-            matourdabook = matourbook.toString();
+            String mang1[] = ngaysinh.trim().split("\\-");
+            for(String s: mang1){
+                makh.append(s);
+            }
+            String txtsdt = txtSodienthoai.getText();
+            String sdt = txtsdt.substring(txtsdt.length()-3, txtsdt.length());
+            makh.append(sdt);
             
+            return makh.toString();
+            
+    }
+    public String taomadattour(){
+            StringBuilder madattour = new StringBuilder();
+            madattour.append(tour.getMatour());
+            madattour.append(taomakhachhang());
+            String mang1[] = txtkhoihanh.getText().trim().split("\\-");
+            for(String s: mang1){
+                madattour.append(s);
+            }
+            return madattour.toString();
+    }
+     public String ngayhientai() {
+        Calendar lich = new GregorianCalendar();
+        String ngay = lich.get(Calendar.DAY_OF_MONTH) + "";
+        String thang = lich.get(Calendar.MONTH) + "";
+        String nam = lich.get(Calendar.YEAR) + "";
+        if (ngay.length() == 1) {
+            ngay = "0" + ngay;
+        }
+        if (thang.length() == 1) {
+            thang = "0" + thang;
+        }
+        String string = nam + "-" + thang + "-" + ngay;
+
+       return string;
+
     }
     public void getThongTinTour(String matour){
         tour = TourBLL.getInstance().getTourTheoMa(matour);
@@ -160,18 +202,40 @@ public class FormDangKyTour extends javax.swing.JFrame {
         txtXuatPhat.setText(tour.getDiemxuatphat());
         
     }
-    
+    public int tinh(int nguoilon,int trem){
+        int tongtien=0;
+        tongtien = nguoilon*tour.getGiatour()
+                    +trem*tour.getGiatour()/2;
+        
+        return tongtien;
+    }
     public void tinhtongtien(){
-        
-        
+        int tongtien = 0;
         txtNguoiLon.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if(Integer.parseInt(txtNguoiLon.getValue().toString())>=0)
-                    txtTongtien.setText(tien*Integer.parseInt(txtNguoiLon.getValue().toString())+" VND");
-                else
-                    txtTongtien.setText("0 VND");
+                if (Integer.parseInt(txtNguoiLon.getValue().toString()) > 0) {
+                    txtTongtien.setText(tinh(Integer.parseInt(txtNguoiLon.getValue().toString()),Integer.parseInt(txtTreEm.getValue().toString())) + "");
+                } else if (Integer.parseInt(txtTreEm.getValue().toString()) > 0) {
+                    txtTongtien.setText(tinh(0,Integer.parseInt(txtTreEm.getValue().toString()))+"");
+                } else{
+                    txtTongtien.setText(0+"");
+                }
                 
+                
+            }
+        });
+        txtTreEm.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (Integer.parseInt(txtTreEm.getValue().toString()) > 0) {
+                    txtTongtien.setText(tinh(Integer.parseInt(txtNguoiLon.getValue().toString()),Integer.parseInt(txtTreEm.getValue().toString())) + "");
+                } else if (Integer.parseInt(txtNguoiLon.getValue().toString()) > 0) {
+                     txtTongtien.setText(tinh(Integer.parseInt(txtNguoiLon.getValue().toString()),0) + "");
+                } else{
+                    txtTongtien.setText(0 + "");
+                }
+
             }
         });
     }
@@ -230,6 +294,7 @@ public class FormDangKyTour extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         txtTongtien = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -308,16 +373,12 @@ public class FormDangKyTour extends javax.swing.JFrame {
         xdd5.setText("Ngày sinh :");
 
         tbten.setForeground(new java.awt.Color(223, 0, 41));
-        tbten.setText("abc");
 
         tbsdt.setForeground(new java.awt.Color(223, 0, 41));
-        tbsdt.setText("abc");
 
         tbgmail.setForeground(new java.awt.Color(223, 0, 41));
-        tbgmail.setText("abc");
 
         tbdiachi.setForeground(new java.awt.Color(223, 0, 41));
-        tbdiachi.setText("abc");
 
         javax.swing.GroupLayout txttreemLayout = new javax.swing.GroupLayout(txttreem);
         txttreem.setLayout(txttreemLayout);
@@ -462,7 +523,10 @@ public class FormDangKyTour extends javax.swing.JFrame {
         jLabel19.setText("(Trẻ em = 50% x Giá tiền)");
 
         txtTongtien.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        txtTongtien.setText("3.750.000 VNĐ");
+        txtTongtien.setText("0");
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel13.setText("VND");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -477,18 +541,19 @@ public class FormDangKyTour extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txttreem, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txttreem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
-                                .addComponent(txtDangKyTour, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                                .addGap(64, 64, 64))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(tongtien, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(73, 73, 73)
+                                .addComponent(tongtien, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(txtTongtien)
-                                .addGap(0, 0, Short.MAX_VALUE))))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel13))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(83, 83, 83)
+                                .addComponent(txtDangKyTour, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -523,7 +588,7 @@ public class FormDangKyTour extends javax.swing.JFrame {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtTenTour)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -557,16 +622,19 @@ public class FormDangKyTour extends javax.swing.JFrame {
                     .addComponent(txtGiatien)
                     .addComponent(jLabel19))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txttreem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tongtien, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTongtien))
-                        .addGap(83, 83, 83)
-                        .addComponent(txtDangKyTour, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txttreem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+                            .addComponent(txtTongtien)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtDangKyTour, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(91, 91, 91))))
         );
 
         pack();
@@ -594,24 +662,38 @@ public class FormDangKyTour extends javax.swing.JFrame {
 
     private void txtDangKyTourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDangKyTourActionPerformed
         String makh = null;
+        String madattour = null;
         if(kiemsoatform()){
-            boolean dangky ;
-            String ngaykhoihanh = txtkhoihanh.getText();
-            String ngaysinh = null;
-            int gioitinh = 0;
+            if(tinh(tinh(Integer.parseInt(txtNguoiLon.getValue().toString()),Integer.parseInt(txtTreEm.getValue().toString()))
+                    ,tinh(Integer.parseInt(txtTreEm.getValue().toString()),Integer.parseInt(txtTreEm.getValue().toString())))>0){
+                boolean dangky ;
+                String ngaykhoihanh = txtkhoihanh.getText();
 
-            if (btnnam.isSelected()) {
-                gioitinh = 0;
+                String ngaysinh = null;
+                int gioitinh = 0;
+                if (btnnam.isSelected()) 
+                    gioitinh = 0;
+                else
+                    gioitinh = 1;
+
+
+                try {
+                    java.util.Date date = txtngaysinh.getDate();
+                    ngaysinh  = new SimpleDateFormat("yyyy-MM-dd").format(date);
+                } catch (NullPointerException e) {}
+                
+                venguoilon = Integer.parseInt(txtNguoiLon.getValue().toString());
+                vetreem = Integer.parseInt(txtTreEm.getValue().toString());
+                KhachHang khachHang = new KhachHang(taomakhachhang(),txtTenKhach.getText(), gioitinh,txtSodienthoai.getText(), txtgmail.getText(), txtdiachi.getText(),ngaysinh);
+                dangky = DangiKyTourBLL.getInstance().inserttourdabook(tour,taomadattour(), khachHang,ngayhientai(), ngaykhoihanh, venguoilon, vetreem,tinh(tinh(Integer.parseInt(txtNguoiLon.getValue().toString()),Integer.parseInt(txtTreEm.getValue().toString()))
+                    ,tinh(Integer.parseInt(txtTreEm.getValue().toString()),Integer.parseInt(txtTreEm.getValue().toString()))));
+                if(dangky){
+                    JOptionPane.showMessageDialog(rootPane,"Đăng ký thành công");
+                    FormGiaoDienTour formGiaoDienTour = new FormGiaoDienTour();
+                    formGiaoDienTour.setVisible(true);
+                    setVisible(false);
+                }
             }
-            else
-                gioitinh = 1;
-            try {
-                java.util.Date date = txtngaysinh.getDate();
-                ngaysinh  = new SimpleDateFormat("yyyy-MM-dd").format(date);
-            } catch (NullPointerException e) {
-            }
-            KhachHang khachHang = new KhachHang("LQN002",txtTenKhach.getText(), gioitinh,txtSodienthoai.getText(), txtgmail.getText(), txtdiachi.getText(),ngaysinh);
-            dangky = DangiKyTourBLL.getInstance().inserttourdabook(tour, khachHang, ngaykhoihanh, venguoilon, vetreem);
         }
         
     }//GEN-LAST:event_txtDangKyTourActionPerformed
@@ -663,6 +745,7 @@ public class FormDangKyTour extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;

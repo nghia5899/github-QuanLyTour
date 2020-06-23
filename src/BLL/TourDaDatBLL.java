@@ -38,6 +38,7 @@ public class TourDaDatBLL {
                          rs.getString("ngaydattour"), rs.getString("ngaykhoihanh"), rs.getString("sodienthoai"),
                         rs.getString("gmail"), rs.getInt("songuoilon"), rs.getInt("sotreem"), rs.getInt("tongtien"));
                         tourDaDat.setMakhachhang(rs.getString("khachhang.makhachhang"));
+                        tourDaDat.setMatour(rs.getString("tour.matour"));
                 list.add(tourDaDat);
             }
         } catch (SQLException ex) {
@@ -46,9 +47,22 @@ public class TourDaDatBLL {
     }
     
     public boolean CapNhatTourDaDat(TourDaDat tour){
-        return TourDaDatDAO.getInstance().CapNhatTourDaDat(tour);
+            return TourDaDatDAO.getInstance().CapNhatTourDaDat(tour);
     }
     public boolean XoatourDaDat(TourDaDat tour){
         return TourDaDatDAO.getInstance().XoatourDaDat(tour);
+    }
+    
+    public long getGiatour(String matour){
+        ResultSet rs = TourDaDatDAO.getInstance().GetGiaTour(matour);
+        long giatour = 0;
+        try {
+            while (rs.next()) {
+                giatour = rs.getInt("giatour");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(KhachHangBLL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return giatour;
     }
 }

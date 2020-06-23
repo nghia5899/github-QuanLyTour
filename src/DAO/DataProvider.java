@@ -22,7 +22,7 @@ public class DataProvider {
         return connection;
     }
     
-    private DataProvider() 
+    public DataProvider() 
     {
         try {
             Class.forName("com.mysql.jdbc.Driver");

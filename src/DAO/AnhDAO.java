@@ -44,8 +44,8 @@ public class AnhDAO {
     }
     public boolean Themanh(String matour,String linkanh){
         int result = 0;
-        int so = 7;
-         String query = "Insert into anh values ("+so+",'"+matour+"','"+linkanh+"')";
+        int so = 3;
+         String query = "Insert into anh values (null,'"+matour+"','"+linkanh+"')";
          try { 
             Statement pre = DataProvider.getInstance().getConnection().createStatement();
             result  = pre.executeUpdate(query);

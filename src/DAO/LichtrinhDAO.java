@@ -5,7 +5,13 @@
  */
 package DAO;
 
+import DTO.LichTrinh;
+import DTO.TourDaDat;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,5 +36,17 @@ public class LichtrinhDAO {
     public ResultSet demsolichtrinh(String matour){
         
         return DataProvider.getInstance().GetData("select count(*) as 'songay' from lichtrinh where matour = '"+matour+"'");
+    }
+   
+    public boolean CapNhatLichTrinh(LichTrinh lichtrinh){
+        int result = 0;
+        String query = "UPDATE `lichtrinh` SET `noidung` = '"+lichtrinh.getNoidung()+"' where malichtrinh = '"+lichtrinh.getMalichtrinh()+"' ";
+        try { 
+            Statement pre = DataProvider.getInstance().getConnection().createStatement();
+            result = pre.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(LichtrinhDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result > 0;
     }
 }

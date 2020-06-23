@@ -39,7 +39,7 @@ public class TourBLL {
         ResultSet datalichtrinh = LichtrinhDAO.getInstance().GetListLichTrinh(matour);
         try {
             while (datalichtrinh.next()) {
-                listlichtrinh.add(new LichTrinh(datalichtrinh.getString("ngay"),datalichtrinh.getString("noidung")));
+                listlichtrinh.add(new LichTrinh(datalichtrinh.getString("malichtrinh"),datalichtrinh.getString("ngay"),datalichtrinh.getString("noidung")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(TourBLL.class.getName()).log(Level.SEVERE, null, ex);
