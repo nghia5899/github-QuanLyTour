@@ -24,8 +24,8 @@ public class DangiKyTourBLL {
         return instance;
     }
     
-    public boolean inserttourdabook(Tour tour,KhachHang khachHang ,String ngaykhoihanh,int songuoilon,int sotreem){
+    public boolean inserttourdabook(Tour tour,String madattour,KhachHang khachHang,String ngayhientai ,String ngaykhoihanh,int songuoilon,int sotreem,int tongtien){
         boolean themkhachhang = KhachHangDAO.getInstance().Insert(khachHang);
-        return DangKyTourDAO.getInstance().insertdangky(tour, khachHang, ngaykhoihanh, songuoilon, sotreem)&&themkhachhang;
+        return DangKyTourDAO.getInstance().insertdangky(tour,madattour, khachHang,ngayhientai, ngaykhoihanh, songuoilon, sotreem,tongtien)&&themkhachhang;
     }
 }

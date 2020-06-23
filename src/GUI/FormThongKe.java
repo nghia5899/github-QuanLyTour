@@ -21,6 +21,14 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 
 /**
  *
@@ -419,30 +427,52 @@ public class FormThongKe extends javax.swing.JFrame {
         thongke();
     }//GEN-LAST:event_btnLocActionPerformed
 
+    private static HSSFCellStyle createStyleForTitle(HSSFWorkbook workbook) {
+        HSSFFont font = workbook.createFont();
+        font.setBold(true);
+        HSSFCellStyle style = workbook.createCellStyle();
+        style.setFont(font);
+        return style;
+    }
     private void btnXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatActionPerformed
         // TODO add your handling code here:
+        
+        
+        
         JFileChooser chooser = new JFileChooser();
         int i = chooser.showSaveDialog(chooser);
         if (i == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             try {
-                FileOutputStream fileOutputStream = new FileOutputStream(file+".txt");
-                Writer writer = new java.io.OutputStreamWriter(fileOutputStream, "utf8");
-                BufferedWriter bwrite = new BufferedWriter(writer);
+                FileOutputStream fileOutputStream = new FileOutputStream(file+".xls");
                 DefaultTableModel model = (DefaultTableModel) table.getModel();
+                
+                HSSFWorkbook workbook = new HSSFWorkbook();
+                HSSFSheet sheet = workbook.createSheet("Employees sheet");
+                
+                int rownum = 0;
+                Cell cell;
+                Row row;
+                HSSFCellStyle style = createStyleForTitle(workbook);
+                row = sheet.createRow(rownum);
+                
                 // ten Cot
+                
                 for (int j = 0; j < table.getColumnCount(); j++) {
-                    bwrite.write(model.getColumnName(j) + "\t");
+                    cell = row.createCell(j, CellType.STRING);
+                    cell.setCellValue(table.getColumnName(j));
+                    cell.setCellStyle(style);    
                 }
-                bwrite.write("\n");
                 // Lay du lieu dong
                 for (int j = 0; j < table.getRowCount(); j++) {
+                    rownum++;
+                    row = sheet.createRow(rownum);
                     for (int k = 0; k < table.getColumnCount(); k++) {
-                        bwrite.write(model.getValueAt(j, k) + "\t");
+                        cell = row.createCell(k, CellType.STRING);
+                        cell.setCellValue(model.getValueAt(j, k).toString());
                     }
-                    bwrite.write("\n");
                 }
-                bwrite.close();
+                workbook.write(fileOutputStream);
                 JOptionPane.showMessageDialog(null, "Lưu file thành công!");
             } catch (Exception e2) {
                 JOptionPane.showMessageDialog(null, "Lỗi khi lưu file!");

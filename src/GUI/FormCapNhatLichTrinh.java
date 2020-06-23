@@ -6,36 +6,39 @@
 package GUI;
 
 import BLL.TourBLL;
+import DAO.LichtrinhDAO;
 import DTO.LichTrinh;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author ADMIN
  */
-public class FromCapNhatLichTrinh extends javax.swing.JFrame {
+public class FormCapNhatLichTrinh extends javax.swing.JFrame {
     ArrayList<LichTrinh> lichtrinh;
+    String matour;
     /**
      * Creates new form FromCapNhatLichTrinh
      */
-    public FromCapNhatLichTrinh() {
+    public FormCapNhatLichTrinh() {
         initComponents();
         setLocationRelativeTo(this);
-        getLichTrinh();
-        loadcombobox();
-        
     }
-    public void loadcombobox(){
+    public void loadcombobox(String matour){
+        this.matour = matour;
+        txtMatour.setText(matour);
         DefaultComboBoxModel model = new DefaultComboBoxModel();
-        int songay = TourBLL.getInstance().demsolichtrinh("HNQN001");
+        int songay = TourBLL.getInstance().demsolichtrinh(matour);
         for (int i = 0; i < songay; i++) {
             model.addElement("Ngày "+(i+1));
         }
         txtngay.setModel(model);
     }
-    public void getLichTrinh(){
-        lichtrinh = TourBLL.getInstance().GetLichTrinh("HNQN001");
+    public void getLichTrinh(String matour){
+        this.matour = matour;
+        lichtrinh = TourBLL.getInstance().GetLichTrinh(matour);
         txtlichtrinh.setText(lichtrinh.get(0).getNoidung());
     }
     /**
@@ -51,7 +54,9 @@ public class FromCapNhatLichTrinh extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtlichtrinh = new javax.swing.JTextArea();
         btnsua = new javax.swing.JButton();
-        btnxoa = new javax.swing.JButton();
+        title = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtMatour = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,36 +77,59 @@ public class FromCapNhatLichTrinh extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtlichtrinh);
 
         btnsua.setText("Sửa");
+        btnsua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsuaActionPerformed(evt);
+            }
+        });
 
-        btnxoa.setText("Xóa");
+        title.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        title.setText("Quản lí lịch trình");
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel2.setText("Mã tour :");
+
+        txtMatour.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
+        txtMatour.setText("HNQN01");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(262, 262, 262))
             .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
+                .addGap(118, 118, 118)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(34, 34, 34)
+                        .addComponent(txtMatour))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(txtngay, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(138, 138, 138)
-                        .addComponent(btnsua, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(btnxoa, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(182, 182, 182)
+                        .addComponent(btnsua, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtMatour))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtngay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnsua)
-                    .addComponent(btnxoa))
+                    .addComponent(btnsua))
                 .addGap(55, 55, 55)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
         );
 
         pack();
@@ -113,15 +141,16 @@ public class FromCapNhatLichTrinh extends javax.swing.JFrame {
     }//GEN-LAST:event_txtngayPropertyChange
 
     private void txtngayItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txtngayItemStateChanged
-        try {
-            switch(txtngay.getSelectedIndex()){
-            case 0: txtlichtrinh.setText(lichtrinh.get(0).getNoidung());break;
-            case 1: txtlichtrinh.setText(lichtrinh.get(1).getNoidung());break;
-            case 2: txtlichtrinh.setText(lichtrinh.get(2).getNoidung());break;
-        }
-        } catch (NullPointerException e) {
-        }
+        txtlichtrinh.setText(lichtrinh.get(txtngay.getSelectedIndex()).getNoidung());
     }//GEN-LAST:event_txtngayItemStateChanged
+
+    private void btnsuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsuaActionPerformed
+        lichtrinh.get(txtngay.getSelectedIndex()).setNoidung(txtlichtrinh.getText());
+        if(LichtrinhDAO.getInstance().CapNhatLichTrinh(lichtrinh.get(txtngay.getSelectedIndex())))
+            JOptionPane.showMessageDialog(rootPane,"Cập nhật thành công");
+        getLichTrinh(matour);
+        txtlichtrinh.setText(lichtrinh.get(txtngay.getSelectedIndex()).getNoidung());
+    }//GEN-LAST:event_btnsuaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,28 +169,31 @@ public class FromCapNhatLichTrinh extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FromCapNhatLichTrinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCapNhatLichTrinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FromCapNhatLichTrinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCapNhatLichTrinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FromCapNhatLichTrinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCapNhatLichTrinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FromCapNhatLichTrinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormCapNhatLichTrinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FromCapNhatLichTrinh().setVisible(true);
+                new FormCapNhatLichTrinh().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnsua;
-    private javax.swing.JButton btnxoa;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel title;
+    private javax.swing.JLabel txtMatour;
     private javax.swing.JTextArea txtlichtrinh;
     private javax.swing.JComboBox<String> txtngay;
     // End of variables declaration//GEN-END:variables

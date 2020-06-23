@@ -5,6 +5,7 @@
  */
 package BLL;
 
+import DAO.AnhDAO;
 import DAO.GiaoDienTourDAO;
 import DTO.Tour;
 import java.sql.ResultSet;
@@ -31,21 +32,12 @@ public class GiaoDienTourBLL {
     }
     
     public void getListTourSearch(ArrayList<Tour> listtour,String diemdi,String diemden,int max,int min){
+        listtour.clear();
         ResultSet data = GiaoDienTourDAO.getInstance().getListSearch(diemdi, diemden, max, min);
         try {
             while (data.next()) {
                 Tour tour = new Tour(data.getString("matour"),data.getString("tentour"),data.getInt("giatour"),data.getInt("phantram"));
-                listtour.add(tour);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(GiaoDienTourBLL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void getListTourKhuyenMai(ArrayList<Tour> listtour){
-        ResultSet data = GiaoDienTourDAO.getInstance().getListTourKhuyenMai();
-        try {
-            while (data.next()) {
-                Tour tour = new Tour(data.getString("matour"),data.getString("tentour"),data.getInt("giatour"),data.getInt("phantram"));
+                tour.setAnhchinh(getAnh(data.getString("matour")));
                 listtour.add(tour);
             }
         } catch (SQLException ex) {
@@ -53,6 +45,30 @@ public class GiaoDienTourBLL {
         }
     }
     
+    public void getListTourKhuyenMai(ArrayList<Tour> listtour){
+        ResultSet data = GiaoDienTourDAO.getInstance().getListTourKhuyenMai();
+        try {
+            while (data.next()) {
+
+                Tour tour = new Tour(data.getString("matour"),data.getString("tentour"),data.getInt("giatour"),data.getInt("phantram"));
+                tour.setAnhchinh(getAnh(data.getString("matour")));
+                listtour.add(tour);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GiaoDienTourBLL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public String getAnh(String matour){
+        String linkanh = null;
+        ResultSet dataanh = AnhDAO.getInstance().getListAnh(matour);
+        try {
+            dataanh.next();
+            linkanh = dataanh.getString("linkanh");
+        } catch (SQLException ex) {
+            linkanh = "C:\\Users\\ADMIN\\Documents\\NetBeansProjects\\QuanLyTour\\anh\\logo.png";
+        }
+        return linkanh;
+    }
     public void LoadComboboxDiemXuatPhat(DefaultComboBoxModel model){
          ResultSet data = GiaoDienTourDAO.getInstance().getDienXuatPhat();
          model.addElement("---Chọn điểm đi---");

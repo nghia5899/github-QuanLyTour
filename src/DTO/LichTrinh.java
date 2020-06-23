@@ -10,6 +10,7 @@ package DTO;
  * @author ADMIN
  */
 public class LichTrinh {
+    String malichtrinh;
     String ngay ;
     String noidung ;
 
@@ -18,6 +19,20 @@ public class LichTrinh {
         this.noidung = noidung;
     }
 
+    public LichTrinh(String malichtrinh, String ngay, String noidung) {
+        this.malichtrinh = malichtrinh;
+        this.ngay = ngay;
+        this.noidung = noidung;
+    }
+
+    public String getMalichtrinh() {
+        return malichtrinh;
+    }
+
+    public void setMalichtrinh(String malichtrinh) {
+        this.malichtrinh = malichtrinh;
+    }
+    
     public String getNgay() {
         return ngay;
     }

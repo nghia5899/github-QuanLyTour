@@ -24,6 +24,7 @@ public class Tour {
     String dichvu;
     int khuyenmai;
     String anhchinh;
+    String makhuyenmai;
 
     public Tour() {
     }
@@ -49,7 +50,28 @@ public class Tour {
         this.khuyenmai = khuyenmai;
         this.anhchinh = anhchinh;
     }
-
+    public Tour(String matour, String tentour, String diemxuatphat, String diadiem,String diemdulich, String dichvu, String thoigiantour, int giatour, int khuyenmai) {
+        this.matour = matour;
+        this.tentour = tentour;
+        this.diemxuatphat = diemxuatphat;
+        this.thoigiantour = thoigiantour;
+        this.giatour = giatour;
+        this.diemdulich = diemdulich;
+        this.diadiem = diadiem;
+        this.dichvu = dichvu;
+        this.khuyenmai = khuyenmai;
+    }
+    public Tour(String matour, String tentour, String diemxuatphat, String diadiem, String dichvu,String diemdulich, String thoigiantour, int giatour, String khuyenmai) {
+        this.matour = matour;
+        this.tentour = tentour;
+        this.diemxuatphat = diemxuatphat;
+        this.thoigiantour = thoigiantour;
+        this.giatour = giatour;
+        this.diemdulich = diemdulich;
+        this.diadiem = diadiem;
+        this.dichvu = dichvu;
+        this.makhuyenmai = khuyenmai;
+    }
     public String getMatour() {
         return matour;
     }
@@ -135,6 +157,16 @@ public class Tour {
 
     public void setDiemdulichString(String diemdulich) {
         this.diemdulich = diemdulich;
+    }
+
+    
+
+    public String getMakhuyenmai() {
+        return makhuyenmai;
+    }
+
+    public void setMakhuyenmai(String makhuyenmai) {
+        this.makhuyenmai = makhuyenmai;
     }
     
     

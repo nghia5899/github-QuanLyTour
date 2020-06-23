@@ -21,6 +21,9 @@ public class TourDaDat {
     int sotreem ;
     long tongtien;
     String makhachhang;
+    String matour;
+
+  
     public TourDaDat() {
     }
 
@@ -125,6 +128,13 @@ public class TourDaDat {
         this.makhachhang = makhachhang;
     }
     
+     public String getMatour() {
+        return matour;
+    }
+
+    public void setMatour(String matour) {
+        this.matour = matour;
+    }
     
     
 }
