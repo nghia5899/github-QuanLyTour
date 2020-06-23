@@ -10,6 +10,7 @@ import DAO.LichtrinhDAO;
 import DTO.LichTrinh;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +25,7 @@ public class FormCapNhatLichTrinh extends javax.swing.JFrame {
      */
     public FormCapNhatLichTrinh() {
         initComponents();
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLocationRelativeTo(this);
     }
     public void loadcombobox(String matour){
