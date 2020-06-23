@@ -46,6 +46,7 @@ public int Insert(Tour x) {
         String query = "Insert into tour values('" + x.getMatour() + "','" + x.getTentour() + "','" + x.getDiemxuatphat() + "','" + x.getDiadiem() + "','" + x.getDiemdulich() + "','" + x.getDichvu() + "','" + x.getThoigiantour() + "'," + x.getGiatour() + ",'" + x.getMakhuyenmai()+ "')";
         try {
             Statement pre = DataProvider.getInstance().getConnection().createStatement();
+            
             return pre.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(TourDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -49,4 +49,19 @@ public class LichtrinhDAO {
         }
         return result > 0;
     }
+    public boolean themlichtrinh(String matour){
+        int result =0;
+        String query = "Insert into lichtrinh values(null,'"+matour+"','Ngay 1',null),"
+                + "                                 (null,'"+matour+"','Ngay 2',null),"
+                + "                                 (null,'"+matour+"','Ngay 3',null),"
+                + "                                 (null,'"+matour+"','Ngay 4',null),"
+                + "                                 (null,'"+matour+"','Ngay 5',null)";
+        try { 
+            Statement pre = DataProvider.getInstance().getConnection().createStatement();
+            result = pre.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(LichtrinhDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result > 0;
+    }
 }

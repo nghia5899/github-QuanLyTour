@@ -343,9 +343,10 @@ public class FormQuanLyTour extends javax.swing.JFrame {
             if (checkTrung()) {
                 if (checkNull()) {
 
-                    Tour tour = new Tour(matour, tentour, diemxp, diadiem, diemdl, dichvu, tgtour, Integer.valueOf(giatour), Integer.parseInt(makm));
+                    Tour tour = new Tour(matour, tentour, diemxp, diadiem, diemdl, dichvu, tgtour, Integer.valueOf(giatour), makm);
                     TourDAO tourda = new TourDAO();
-                    tourda.Insert(tour);
+                    if(tourda.Insert(tour)>0)
+                        LichtrinhDAO.getInstance().themlichtrinh(matour);
                     hienThiBang();
                 }
             }

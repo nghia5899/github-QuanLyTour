@@ -39,7 +39,7 @@ public class FormQuanLiAnh extends javax.swing.JFrame {
     public FormQuanLiAnh() {
         initComponents();
         setLocationRelativeTo(this);
-        
+        dispose();
         
     }
     public int taosize(int cuoi){
@@ -102,7 +102,7 @@ public class FormQuanLiAnh extends javax.swing.JFrame {
         int kt =  fileChooser.showOpenDialog(this);
         if(kt == JFileChooser.APPROVE_OPTION){
             java.io.File file = fileChooser.getSelectedFile();
-            if(AnhBLL.getInstance().ThemAnh("HNQN001", xulilinkanh(file.getAbsolutePath())))
+            if(AnhBLL.getInstance().ThemAnh(matour, xulilinkanh(file.getAbsolutePath())))
                 JOptionPane.showMessageDialog(rootPane,"Thêm thành ảnh công");
         }
         
