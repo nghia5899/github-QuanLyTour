@@ -10,29 +10,38 @@ package DTO;
  * @author chubo
  */
 public class taikhoan {
-    private String tendangnhap;
-    private String matkhau;
+    String tendangnhap;
+    String matkhau;
+    String loaitaikhoan;
 
     public taikhoan() {
     }
 
-    public taikhoan(String tendangnhap, String matkhau) {
+    public taikhoan(String tendangnhap, String matkhau,String loaitaikhoan) {
         this.tendangnhap = tendangnhap;
         this.matkhau = matkhau;
+        this.loaitaikhoan = loaitaikhoan;
+    }
+    
+
+    public String getLoaitaikhoan() {
+        return loaitaikhoan;
+    }
+
+    public void setLoaitaikhoan(String loaitaikhoan) {
+        this.loaitaikhoan = loaitaikhoan;
     }
 
     public String getTendangnhap() {
         return tendangnhap;
     }
-
-    public String getMatkhau() {
-        return matkhau;
-    }
-
     public void setTendangnhap(String tendangnhap) {
         this.tendangnhap = tendangnhap;
     }
-
+    
+    public String getMatkhau() {
+        return matkhau;
+    }
     public void setMatkhau(String matkhau) {
         this.matkhau = matkhau;
     }

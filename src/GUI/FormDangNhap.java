@@ -19,6 +19,8 @@ public class FormDangNhap extends javax.swing.JFrame {
     DefaultTableModel model;
     ArrayList<taikhoan> list = new ArrayList<>();
     public static String taikhoan;
+    public static String loaitaikhoan;
+
     /**
      * Creates new form FormDangNhap
      */
@@ -145,14 +147,14 @@ public class FormDangNhap extends javax.swing.JFrame {
             if(t.getTendangnhap().equals(user)){
                 tk=t.getTendangnhap();
                 mk=t.getMatkhau();
+                taikhoan = t.getTendangnhap();
+                loaitaikhoan = t.getLoaitaikhoan();
             }
         }
             if(tk==null){
                 JOptionPane.showMessageDialog(rootPane, "Tài Khoản Không Tồn Tại");                
             }else{
-                if(mk.equals(pass)){
-                JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công!");
-                taikhoan = txttendangnhap.getText();
+                if(mk.equals(pass)){               
                 new FormGIaoDienAdmin().setVisible(true);
                 this.dispose();
                 }else    JOptionPane.showMessageDialog(rootPane, "Sai mật khẩu");            

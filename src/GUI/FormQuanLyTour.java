@@ -337,7 +337,6 @@ public class FormQuanLyTour extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         getTxt();
         try {
@@ -601,6 +600,7 @@ public class FormQuanLyTour extends javax.swing.JFrame {
 
         return true;
     }
+
 
     /**
      * @param args the command line arguments

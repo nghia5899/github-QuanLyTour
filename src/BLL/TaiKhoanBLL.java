@@ -5,9 +5,11 @@
  */
 package BLL;
 
+import DAO.DataProvider;
 import DTO.taikhoan;
 import java.util.ArrayList;
 import DAO.TaiKhoanDAO;
+import java.sql.ResultSet;
 
 /**
  *
@@ -23,6 +25,12 @@ public class TaiKhoanBLL {
     }
     
     public ArrayList<taikhoan> getlisttaikhoan(){
-        return TaiKhoanDAO.getInstance().getlisttaikhoan();
+        return TaiKhoanDAO.getInstance().laylist();
     }
+    public boolean taikhoansql(String sql){
+        return TaiKhoanDAO.getInstance().taikhoansql(sql);
+    }
+    public ResultSet taikhoantim(String sql){
+        return TaiKhoanDAO.getInstance().taikhoantim(sql);
+}
 }
