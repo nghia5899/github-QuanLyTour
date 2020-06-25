@@ -219,8 +219,9 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
                     FormChiTietTour formChiTietTour = new FormChiTietTour();
                     formChiTietTour.getThongTinTour(dstour.get(vitri).getMatour());
                     formChiTietTour.setNgayKhoihanh(calendar.getDate());
+                    formChiTietTour.loadcombobox();
+                    formChiTietTour.getLichTrinh();
                     formChiTietTour.hienthilistanh();
-                    formChiTietTour.hienthilichtrinh(dstour.get(vitri).getMatour());
                     formChiTietTour.setVisible(true);
                     setVisible(false);
 

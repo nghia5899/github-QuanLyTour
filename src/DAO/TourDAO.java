@@ -57,20 +57,14 @@ public int Insert(Tour x) {
     public boolean Update(Tour x, String matour) {
         int result = 0;
 //        UPDATE tour SET tentour="a", diemxuatphat="b" WHERE matour = "1"
-        String query = "Update tour Set tentour = ?, diemxuatphat = ?, thoigiantour = ?, giatour = ?, diadiem = ?, diemdulich = ?, dichvu= ?, makhuyenmai = ? Where matour = ?";
+        String query = "Update tour Set tentour = '"+x.getTentour()+"', diemxuatphat = '"+x.getDiemxuatphat()+"',"
+                        + " thoigiantour = '"+x.getThoigiantour()+"', giatour = '"+x.getGiatour()+"', diadiem = '"+x.getDiadiem()+"'"
+                        + " , diemdulich = '"+x.getDiemdulich()+"', dichvu= '"+x.getDichvu()+"', tour.makhuyenmai = '"+x.getMakhuyenmai()+"'"
+                        + "   Where tour.matour = '"+x.getMatour()+"'";
 
         try {
-            PreparedStatement pre = DataProvider.getInstance().getConnection().prepareStatement(query);
-            pre.setString(1, x.getTentour());
-            pre.setString(2, x.getDiemxuatphat());
-            pre.setString(3, x.getThoigiantour());
-            pre.setString(4, Integer.toString(x.getGiatour()));
-            pre.setString(5, x.getDiadiem());
-            pre.setString(6, x.getDiemdulich());
-            pre.setString(7, x.getDichvu());
-            pre.setInt(8, x.getKhuyenmai());
-            pre.setString(9, matour);
-            result = pre.executeUpdate();
+            Statement pre =  DataProvider.getInstance().getConnection().createStatement();
+            result = pre.executeUpdate(query);
         } catch (SQLException ex) {
             Logger.getLogger(TourDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

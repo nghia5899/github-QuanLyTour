@@ -38,6 +38,7 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
     TourDaDat tour = new TourDaDat();
     int vitri;
     long giatour;
+    int datim=0;
 
     public FormQuanLiDatTour(JButton btnSua, JButton btnTim, JButton btnXoa, JLabel jLabel1, JLabel jLabel2, JLabel jLabel4, JLabel jLabel5, JScrollPane jScrollPane1, JLabel lblID, JLabel lblID1, JLabel lblName, JLabel lblPhone, JTable tbquantidattour, JTextField txtGmail, JSpinner txtNguoiLon, JTextField txtTenKhach, JSpinner txtTreEm, JTextField txtmatourdat, JDateChooser txtngaykhoihanh, JTextField txtsdt) throws HeadlessException {
         this.btnSua = btnSua;
@@ -68,12 +69,11 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
     public FormQuanLiDatTour() {
         initComponents();
         setLocationRelativeTo(this);
+        TourDaDatBLL.getInstance().getTourDaDaDat(listtour);
         hienthidanhsach();
     }
 
-    public void clearform() {
-
-    }
+   
 
     public void xoatour() {
         if (TourDaDatBLL.getInstance().XoatourDaDat(tour)) {
@@ -98,8 +98,7 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
 
     public void hienthidanhsach() {
         DefaultTableModel model = (DefaultTableModel) tbquantidattour.getModel();
-        model.setRowCount(0);
-        TourDaDatBLL.getInstance().getTourDaDaDat(listtour);
+        model.setRowCount(0);       
         for (TourDaDat tourDaDat : listtour) {
             Object mang[] = {tourDaDat.getMadanhsach(), tourDaDat.getTentour(), tourDaDat.getNgaykhoihanh(), tourDaDat.getNgaydattour(),
                  tourDaDat.getTenkhachhang(), tourDaDat.getSodienthoai(), tourDaDat.getGmail(), tourDaDat.getSonguoilon(),
@@ -188,7 +187,7 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
             kiemtra = false;
         }
         
-        if (Pattern.matches("[a-zA-Z]+[@]{1}[a-zA-Z]{1,}[.]{1}[a-zA-Z]+",txtGmail.getText())&&!txtGmail.getText().equals("")) {
+        if (Pattern.matches("[a-zA-Z0-9]+[@]{1}[a-zA-Z]{1,}[.]{1}[a-zA-Z]+",txtGmail.getText())&&!txtGmail.getText().equals("")) {
             tbgmail.setText("");
             
         } else {
@@ -214,12 +213,14 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
             kiemtra =false;
         }
         
-        if (txtmatourdat.getText().equals("")) {
-            kiemtra = false;
-            JOptionPane.showMessageDialog(rootPane, "Chưa chọn tour");
-        } 
+        
         
         return kiemtra;
+    }
+    public void clearform(){
+        txtsdt.setText("");
+        txtGmail.setText("");
+        txtTenKhach.setText("");
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -351,17 +352,6 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
                 .addGap(153, 153, 153)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNguoiLon, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTreEm, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
-                        .addComponent(tbsonguoi, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblPhone)
                             .addComponent(lblID))
@@ -391,24 +381,39 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
                                 .addComponent(txtTongtien)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel6)))
-                        .addGap(109, 109, 109))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(109, 109, 109))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(236, 236, 236)
-                                .addComponent(jLabel1))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(371, 371, 371)
+                                .addComponent(tbsonguoi, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblID1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtNguoiLon, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(62, 62, 62)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtTreEm, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(256, 256, 256)
-                        .addComponent(lblID1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtmatourdat, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnTim)))
+                        .addComponent(jButton1)
+                        .addGap(225, 225, 225)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtmatourdat, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnTim))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(11, 11, 11)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -422,12 +427,12 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1)))
-                .addGap(27, 27, 27)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel1)))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblID1)
                     .addComponent(txtmatourdat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -456,13 +461,14 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
                             .addComponent(lblPhone)
                             .addComponent(tbsdt))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(tbsonguoi)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(txtNguoiLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTreEm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tbsonguoi))
-                .addGap(18, 18, 18)
+                    .addComponent(txtTreEm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -480,7 +486,6 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
     private void tbquantidattourMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbquantidattourMouseClicked
         vitri = tbquantidattour.getSelectedRow();
 
-        txtmatourdat.setText(listtour.get(vitri).getMadanhsach());
         txtTenKhach.setText((String) tbquantidattour.getModel().getValueAt(vitri, 4));
         txtsdt.setText((String) tbquantidattour.getModel().getValueAt(vitri, 5));
         txtGmail.setText((String) tbquantidattour.getModel().getValueAt(vitri, 6));
@@ -509,23 +514,35 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
         if (kiemsoatform()) {
             capnhat();
             JOptionPane.showMessageDialog(rootPane,"Cập nhật thành công");
-            hienthidanhsach();
+           if(datim==1)
+               TourDaDatBLL.getInstance().timkiemTourDaDaDat(listtour, txtmatourdat.getText());
+           else
+               TourDaDatBLL.getInstance().getTourDaDaDat(listtour);
+           hienthidanhsach();
+           clearform();
         }
+        
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        if (!txtmatourdat.getText().equals("")) {
-            xoatour();
-            hienthidanhsach();
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Chưa chọn tour");
-        }
+
+        int xoa = JOptionPane.showConfirmDialog(rootPane, "Bán muốn xóa tour da dat co ma "+tour.getMadanhsach(), "Xóa", JOptionPane.YES_NO_OPTION);
+        if(xoa==JOptionPane.YES_OPTION)
+                xoatour();
+        if(datim==1)
+            TourDaDatBLL.getInstance().timkiemTourDaDaDat(listtour, txtmatourdat.getText());
+        else
+            TourDaDatBLL.getInstance().getTourDaDaDat(listtour);
+        hienthidanhsach();
+        clearform();
 
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimActionPerformed
-
-
+        datim =1;
+        TourDaDatBLL.getInstance().timkiemTourDaDaDat(listtour, txtmatourdat.getText());
+        
+        hienthidanhsach();
     }//GEN-LAST:event_btnTimActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

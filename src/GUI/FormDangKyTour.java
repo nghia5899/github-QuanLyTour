@@ -7,6 +7,7 @@ package GUI;
 
 import BLL.DangiKyTourBLL;
 import BLL.TourBLL;
+import BLL.TourDaDatBLL;
 import DTO.KhachHang;
 import DTO.Tour;
 import java.awt.event.ActionEvent;
@@ -94,7 +95,7 @@ public class FormDangKyTour extends javax.swing.JFrame {
         }
         
         //kiémtraemail
-        if (Pattern.matches("[a-zA-Z]+[@]{1}[a-zA-Z]{1,}[.]{1}[a-zA-Z]+",txtgmail.getText())&&!txtgmail.getText().equals("")) {
+        if (Pattern.matches("[a-zA-Z0-9]+[@]{1}[a-zA-Z]{1,}[.]{1}[a-zA-Z]+",txtgmail.getText())&&!txtgmail.getText().equals("")) {
             tbgmail.setText("");
         } else {
             tbgmail.setText("Nhập sai gmail !");
@@ -652,7 +653,8 @@ public class FormDangKyTour extends javax.swing.JFrame {
         FormChiTietTour formChiTietTour = new FormChiTietTour();
                     formChiTietTour.getThongTinTour(tour.getMatour());
                     formChiTietTour.setNgayKhoihanh(date);
-                    formChiTietTour.hienthilichtrinh(tour.getMatour());
+                    formChiTietTour.loadcombobox();
+                    formChiTietTour.getLichTrinh();
                     formChiTietTour.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -664,8 +666,7 @@ public class FormDangKyTour extends javax.swing.JFrame {
         String makh = null;
         String madattour = null;
         if(kiemsoatform()){
-            if(tinh(tinh(Integer.parseInt(txtNguoiLon.getValue().toString()),Integer.parseInt(txtTreEm.getValue().toString()))
-                    ,tinh(Integer.parseInt(txtTreEm.getValue().toString()),Integer.parseInt(txtTreEm.getValue().toString())))>0){
+            if(tinh(Integer.parseInt(txtNguoiLon.getValue().toString()),Integer.parseInt(txtTreEm.getValue().toString()))>0){
                 boolean dangky ;
                 String ngaykhoihanh = txtkhoihanh.getText();
 
@@ -684,7 +685,12 @@ public class FormDangKyTour extends javax.swing.JFrame {
                 
                 venguoilon = Integer.parseInt(txtNguoiLon.getValue().toString());
                 vetreem = Integer.parseInt(txtTreEm.getValue().toString());
-                KhachHang khachHang = new KhachHang(taomakhachhang(),txtTenKhach.getText(), gioitinh,txtSodienthoai.getText(), txtgmail.getText(), txtdiachi.getText(),ngaysinh);
+                String makhachhang = taomakhachhang();
+                if(TourDaDatBLL.getInstance().checkma(taomakhachhang())>0){
+                     makhachhang = taomakhachhang()+"1";
+                }
+                
+                KhachHang khachHang = new KhachHang(makhachhang,txtTenKhach.getText(), gioitinh,txtSodienthoai.getText(), txtgmail.getText(), txtdiachi.getText(),ngaysinh);
                 dangky = DangiKyTourBLL.getInstance().inserttourdabook(tour,taomadattour(), khachHang,ngayhientai(), ngaykhoihanh, venguoilon, vetreem,tinh(tinh(Integer.parseInt(txtNguoiLon.getValue().toString()),Integer.parseInt(txtTreEm.getValue().toString()))
                     ,tinh(Integer.parseInt(txtTreEm.getValue().toString()),Integer.parseInt(txtTreEm.getValue().toString()))));
                 if(dangky){
@@ -693,7 +699,8 @@ public class FormDangKyTour extends javax.swing.JFrame {
                     formGiaoDienTour.setVisible(true);
                     setVisible(false);
                 }
-            }
+            }else
+                JOptionPane.showMessageDialog(rootPane,"Mời nhập số người");
         }
         
     }//GEN-LAST:event_txtDangKyTourActionPerformed

@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -39,6 +40,7 @@ public class FormChiTietTour extends javax.swing.JFrame {
     Tour tour;
     int dau=0,cuoi=3;
     ArrayList<Anh> listanh = new ArrayList<>();
+    ArrayList<LichTrinh> lichtrinh;
     /**
      * Creates new form FormChiTietTour
      */
@@ -78,19 +80,19 @@ public class FormChiTietTour extends javax.swing.JFrame {
         txtDichVu.setText(tour.getDichvu());
     }
     
-    public void hienthilichtrinh(String matour){
-        ArrayList<LichTrinh> list = new ArrayList<>();
-        list.addAll(TourBLL.getInstance().GetLichTrinh(matour));
-        if(list.size()!=0){
-            tour.setLichtrinh(list);
-            txtngay1.setText(tour.getLichtrinh().get(0).getNoidung()+"");
-            txtngay2.setText(tour.getLichtrinh().get(1).getNoidung()+"");
-            txtngay3.setText(tour.getLichtrinh().get(2).getNoidung()+"");
+    public void loadcombobox(){
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        int songay = TourBLL.getInstance().demsolichtrinh(tour.getMatour());
+        for (int i = 0; i < songay; i++) {
+            model.addElement("Ngày "+(i+1));
         }
-        
-        
+        txtngay.setModel(model);
     }
-    
+     public void getLichTrinh(){
+        lichtrinh = TourBLL.getInstance().GetLichTrinh(tour.getMatour());
+        if(lichtrinh.size()>0)
+            txtlichtrinh.setText(lichtrinh.get(0).getNoidung());
+    }
      public boolean kt(){
         txtngaykhoihanh.setDateFormatString("yyyy-MM-dd");
         String string =null;
@@ -168,17 +170,6 @@ public class FormChiTietTour extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtDiemXuatPhat = new javax.swing.JLabel();
         txtDiemDuLich = new javax.swing.JLabel();
-        tablelichtrinh = new javax.swing.JTabbedPane();
-        table1 = new javax.swing.JScrollPane();
-        txtngay1 = new javax.swing.JTextArea();
-        table2 = new javax.swing.JScrollPane();
-        txtngay2 = new javax.swing.JTextArea();
-        table3 = new javax.swing.JScrollPane();
-        txtngay3 = new javax.swing.JTextArea();
-        table4 = new javax.swing.JScrollPane();
-        txtngay4 = new javax.swing.JTextArea();
-        table5 = new javax.swing.JScrollPane();
-        txtngay5 = new javax.swing.JTextArea();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         khunganh = new javax.swing.JPanel();
@@ -189,6 +180,9 @@ public class FormChiTietTour extends javax.swing.JFrame {
         txtngaykhoihanh = new com.toedter.calendar.JDateChooser();
         btnback = new javax.swing.JButton();
         btnnext = new javax.swing.JButton();
+        txtngay = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtlichtrinh = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -222,43 +216,6 @@ public class FormChiTietTour extends javax.swing.JFrame {
 
         txtDiemDuLich.setFont(new java.awt.Font("Dialog", 2, 14)); // NOI18N
         txtDiemDuLich.setText("Vịnh Hạ Long - Bãi Cháy - Đảo Cô Tô");
-
-        txtngay1.setColumns(20);
-        txtngay1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtngay1.setRows(5);
-        table1.setViewportView(txtngay1);
-
-        tablelichtrinh.addTab("Ngày 1", table1);
-
-        txtngay2.setColumns(20);
-        txtngay2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtngay2.setRows(5);
-        txtngay2.setText("NGÀY 2: HÀ NỘI – HẠ LONG  (ĂN SÁNG, TRƯA,TỐI)\n\n8h: Xe và hướng dẫn viên đón Quý khách khởi hành đi Hạ Long (Quảng Ninh). \n\n12h30:  Đến cảng tàu quốc tế tuần châu, Hướng dẫn viên sẽ mua vé để quý khách lên tàu ra tham quan Vịnh Hạ Long.\n\n13h00: Sau khi lên tàu, Quý khách thưởng thức đồ uống chào mừng và dùng bữa trưa trên tàu.\n\n13h45: Sau khi thưởng thức bữa trưa, du khách có thể đứng trên boong tàu để chụp ảnh, ngắm nhìn vịnh hạ long. Điểm đầu tiên du khách được thăm quan chính là hòn Chó Đá đứng sừng sững quay lưng ra biển. \n\n14h00: Sau khi tham quan hòn chó đá là đến Hòn Đỉnh Hương trước khi tàu đưa du khách thăm quan khu làng chài – ba hang. Đến với khu làng chài – ba hang tàu sẽ chờ đợi du khách 1 tiếng cho các hoạt động ngồi thuyền tre để người dân địa phương đưa đi tham quan hoặc  tự do chèo xuồng kayat.\n\n15h00: Tiếp tục lên tàu để tham quan tham quan hòn Trống Mái (hòn gà chọi).\n\n15h30: Du khách vào tham quan Động thiên cung.\n\nSau đó, xe đưa quý khách trở lại bến tàu, Quý khách lên xe về Hà Nội, ăn tối và nghỉ đêm tại Hà Nội.\n\n");
-        table2.setViewportView(txtngay2);
-
-        tablelichtrinh.addTab("Ngày 2", table2);
-
-        txtngay3.setColumns(20);
-        txtngay3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtngay3.setRows(5);
-        txtngay3.setText("NGÀY 3: HÀ NỘI – LÀO CAI- SAPA (ĂN SÁNG, TRƯA, TỐI)\n\n6h30: Quý khách trả phòng khách sạn, xe đón, đưa Quý khách đi du lịch SaPa – Thành phố trong sương.\n\n13h00: Tới Sapa, Quý khách ăn trưa, nghỉ ngơi. Nhận phòng khách sạn và thưởng thức không khí trong lành và phong cảnh hữu tình của Sapa. \n\nChiều: Quý khách khởi động bằng một cuộc leo lên đỉnh Hàm Rồng gồm có: Vườn Lan 1-2, vườn Lê, vườn Táo Mèo, Vườn hoa Trung Tâm, Hòn Đá Gãy, Cổng Trời, Đầu Rồng, Hòn Cá Sấu, Khu Thiên Thách Lâm, Hòn Phật Bà, Sân Mây, tháp truyền hình …\n\nTối: Ăn tối và nghỉ đêm tại Sa Pa. Đặc biệt vào tối thứ bảy Quý khách có thể tham dự phiên Chợ Tình của người Dao Đỏ ");
-        table3.setViewportView(txtngay3);
-
-        tablelichtrinh.addTab("Ngày 3", table3);
-
-        txtngay4.setColumns(20);
-        txtngay4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtngay4.setRows(5);
-        table4.setViewportView(txtngay4);
-
-        tablelichtrinh.addTab("Ngày 4", table4);
-
-        txtngay5.setColumns(20);
-        txtngay5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtngay5.setRows(5);
-        table5.setViewportView(txtngay5);
-
-        tablelichtrinh.addTab("Ngày 5", table5);
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel12.setText("Lịch Trình:");
@@ -315,6 +272,27 @@ public class FormChiTietTour extends javax.swing.JFrame {
             }
         });
 
+        txtngay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtngay.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                txtngayItemStateChanged(evt);
+            }
+        });
+        txtngay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtngayActionPerformed(evt);
+            }
+        });
+        txtngay.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                txtngayPropertyChange(evt);
+            }
+        });
+
+        txtlichtrinh.setColumns(20);
+        txtlichtrinh.setRows(5);
+        jScrollPane1.setViewportView(txtlichtrinh);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -365,9 +343,7 @@ public class FormChiTietTour extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tablelichtrinh, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel12))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,7 +351,12 @@ public class FormChiTietTour extends javax.swing.JFrame {
                                 .addComponent(btnback)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnnext))
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 994, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 994, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtngay, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -415,13 +396,12 @@ public class FormChiTietTour extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(357, 357, 357))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(tablelichtrinh, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                .addComponent(jLabel12)
+                .addGap(18, 18, 18)
+                .addComponent(txtngay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -463,6 +443,18 @@ public class FormChiTietTour extends javax.swing.JFrame {
         khunganh.removeAll();
         hienthilistanh();
     }//GEN-LAST:event_btnnextActionPerformed
+    
+    private void txtngayItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_txtngayItemStateChanged
+        txtlichtrinh.setText(lichtrinh.get(txtngay.getSelectedIndex()).getNoidung());
+    }//GEN-LAST:event_txtngayItemStateChanged
+
+    private void txtngayPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtngayPropertyChange
+
+    }//GEN-LAST:event_txtngayPropertyChange
+
+    private void txtngayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtngayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtngayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -511,26 +503,18 @@ public class FormChiTietTour extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JPanel khunganh;
-    private javax.swing.JScrollPane table1;
-    private javax.swing.JScrollPane table2;
-    private javax.swing.JScrollPane table3;
-    private javax.swing.JScrollPane table4;
-    private javax.swing.JScrollPane table5;
-    private javax.swing.JTabbedPane tablelichtrinh;
     private javax.swing.JLabel txtDichVu;
     private javax.swing.JLabel txtDiemDuLich;
     private javax.swing.JLabel txtDiemXuatPhat;
     private javax.swing.JLabel txtMatour;
     private javax.swing.JLabel txtTenTour;
     private javax.swing.JLabel txtThoiGianTour;
-    private javax.swing.JTextArea txtngay1;
-    private javax.swing.JTextArea txtngay2;
-    private javax.swing.JTextArea txtngay3;
-    private javax.swing.JTextArea txtngay4;
-    private javax.swing.JTextArea txtngay5;
+    private javax.swing.JTextArea txtlichtrinh;
+    private javax.swing.JComboBox<String> txtngay;
     private com.toedter.calendar.JDateChooser txtngaykhoihanh;
     // End of variables declaration//GEN-END:variables
 }
