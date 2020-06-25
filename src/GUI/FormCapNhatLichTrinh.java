@@ -41,7 +41,8 @@ public class FormCapNhatLichTrinh extends javax.swing.JFrame {
     public void getLichTrinh(String matour){
         this.matour = matour;
         lichtrinh = TourBLL.getInstance().GetLichTrinh(matour);
-        txtlichtrinh.setText(lichtrinh.get(0).getNoidung());
+        if(lichtrinh.size()>0)
+            txtlichtrinh.setText(lichtrinh.get(0).getNoidung());
     }
     /**
      * This method is called from within the constructor to initialize the form.

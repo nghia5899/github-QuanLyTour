@@ -85,13 +85,11 @@
               </Group>
               <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="tablelichtrinh" min="-2" pref="885" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
@@ -102,6 +100,13 @@
                               <Component id="btnnext" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane4" min="-2" pref="994" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtngay" min="-2" pref="124" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="904" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -154,16 +159,12 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane4" min="-2" pref="175" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="357" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="tablelichtrinh" min="-2" pref="357" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="txtngay" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="259" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -250,139 +251,6 @@
         <Property name="text" type="java.lang.String" value="V&#x1ecb;nh H&#x1ea1; Long - B&#xe3;i Ch&#xe1;y - &#x110;&#x1ea3;o C&#xf4; T&#xf4;"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JTabbedPane" name="tablelichtrinh">
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
-      <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="table1">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Ng&#xe0;y 1">
-                <Property name="tabTitle" type="java.lang.String" value="Ng&#xe0;y 1"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextArea" name="txtngay1">
-              <Properties>
-                <Property name="columns" type="int" value="20"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="0"/>
-                </Property>
-                <Property name="rows" type="int" value="5"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="table2">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Ng&#xe0;y 2">
-                <Property name="tabTitle" type="java.lang.String" value="Ng&#xe0;y 2"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextArea" name="txtngay2">
-              <Properties>
-                <Property name="columns" type="int" value="20"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="0"/>
-                </Property>
-                <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="NG&#xc0;Y 2: H&#xc0; N&#x1ed8;I &#x2013; H&#x1ea0; LONG  (&#x102;N S&#xc1;NG, TR&#x1af;A,T&#x1ed0;I)&#xa;&#xa;8h: Xe v&#xe0; h&#x1b0;&#x1edb;ng d&#x1eab;n vi&#xea;n &#x111;&#xf3;n Qu&#xfd; kh&#xe1;ch kh&#x1edf;i h&#xe0;nh &#x111;i H&#x1ea1; Long (Qu&#x1ea3;ng Ninh). &#xa;&#xa;12h30:  &#x110;&#x1ebf;n c&#x1ea3;ng t&#xe0;u qu&#x1ed1;c t&#x1ebf; tu&#x1ea7;n ch&#xe2;u, H&#x1b0;&#x1edb;ng d&#x1eab;n vi&#xea;n s&#x1ebd; mua v&#xe9; &#x111;&#x1ec3; qu&#xfd; kh&#xe1;ch l&#xea;n t&#xe0;u ra tham quan V&#x1ecb;nh H&#x1ea1; Long.&#xa;&#xa;13h00: Sau khi l&#xea;n t&#xe0;u, Qu&#xfd; kh&#xe1;ch th&#x1b0;&#x1edf;ng th&#x1ee9;c &#x111;&#x1ed3; u&#x1ed1;ng ch&#xe0;o m&#x1eeb;ng v&#xe0; d&#xf9;ng b&#x1eef;a tr&#x1b0;a tr&#xea;n t&#xe0;u.&#xa;&#xa;13h45: Sau khi th&#x1b0;&#x1edf;ng th&#x1ee9;c b&#x1eef;a tr&#x1b0;a, du kh&#xe1;ch c&#xf3; th&#x1ec3; &#x111;&#x1ee9;ng tr&#xea;n boong t&#xe0;u &#x111;&#x1ec3; ch&#x1ee5;p &#x1ea3;nh, ng&#x1eaf;m nh&#xec;n v&#x1ecb;nh h&#x1ea1; long. &#x110;i&#x1ec3;m &#x111;&#x1ea7;u ti&#xea;n du kh&#xe1;ch &#x111;&#x1b0;&#x1ee3;c th&#x103;m quan ch&#xed;nh l&#xe0; h&#xf2;n Ch&#xf3; &#x110;&#xe1; &#x111;&#x1ee9;ng s&#x1eeb;ng s&#x1eef;ng quay l&#x1b0;ng ra bi&#x1ec3;n. &#xa;&#xa;14h00: Sau khi tham quan h&#xf2;n ch&#xf3; &#x111;&#xe1; l&#xe0; &#x111;&#x1ebf;n H&#xf2;n &#x110;&#x1ec9;nh H&#x1b0;&#x1a1;ng tr&#x1b0;&#x1edb;c khi t&#xe0;u &#x111;&#x1b0;a du kh&#xe1;ch th&#x103;m quan khu l&#xe0;ng ch&#xe0;i &#x2013; ba hang. &#x110;&#x1ebf;n v&#x1edb;i khu l&#xe0;ng ch&#xe0;i &#x2013; ba hang t&#xe0;u s&#x1ebd; ch&#x1edd; &#x111;&#x1ee3;i du kh&#xe1;ch 1 ti&#x1ebf;ng cho c&#xe1;c ho&#x1ea1;t &#x111;&#x1ed9;ng ng&#x1ed3;i thuy&#x1ec1;n tre &#x111;&#x1ec3; ng&#x1b0;&#x1edd;i d&#xe2;n &#x111;&#x1ecb;a ph&#x1b0;&#x1a1;ng &#x111;&#x1b0;a &#x111;i tham quan ho&#x1eb7;c  t&#x1ef1; do ch&#xe8;o xu&#x1ed3;ng kayat.&#xa;&#xa;15h00: Ti&#x1ebf;p t&#x1ee5;c l&#xea;n t&#xe0;u &#x111;&#x1ec3; tham quan tham quan h&#xf2;n Tr&#x1ed1;ng M&#xe1;i (h&#xf2;n g&#xe0; ch&#x1ecd;i).&#xa;&#xa;15h30: Du kh&#xe1;ch v&#xe0;o tham quan &#x110;&#x1ed9;ng thi&#xea;n cung.&#xa;&#xa;Sau &#x111;&#xf3;, xe &#x111;&#x1b0;a qu&#xfd; kh&#xe1;ch tr&#x1edf; l&#x1ea1;i b&#x1ebf;n t&#xe0;u, Qu&#xfd; kh&#xe1;ch l&#xea;n xe v&#x1ec1; H&#xe0; N&#x1ed9;i, &#x103;n t&#x1ed1;i v&#xe0; ngh&#x1ec9; &#x111;&#xea;m t&#x1ea1;i H&#xe0; N&#x1ed9;i.&#xa;&#xa;"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="table3">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Ng&#xe0;y 3">
-                <Property name="tabTitle" type="java.lang.String" value="Ng&#xe0;y 3"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextArea" name="txtngay3">
-              <Properties>
-                <Property name="columns" type="int" value="20"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="0"/>
-                </Property>
-                <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="NG&#xc0;Y 3: H&#xc0; N&#x1ed8;I &#x2013; L&#xc0;O CAI- SAPA (&#x102;N S&#xc1;NG, TR&#x1af;A, T&#x1ed0;I)&#xa;&#xa;6h30: Qu&#xfd; kh&#xe1;ch tr&#x1ea3; ph&#xf2;ng kh&#xe1;ch s&#x1ea1;n, xe &#x111;&#xf3;n, &#x111;&#x1b0;a Qu&#xfd; kh&#xe1;ch &#x111;i du l&#x1ecb;ch SaPa &#x2013; Th&#xe0;nh ph&#x1ed1; trong s&#x1b0;&#x1a1;ng.&#xa;&#xa;13h00: T&#x1edb;i Sapa, Qu&#xfd; kh&#xe1;ch &#x103;n tr&#x1b0;a, ngh&#x1ec9; ng&#x1a1;i. Nh&#x1ead;n ph&#xf2;ng kh&#xe1;ch s&#x1ea1;n v&#xe0; th&#x1b0;&#x1edf;ng th&#x1ee9;c kh&#xf4;ng kh&#xed; trong l&#xe0;nh v&#xe0; phong c&#x1ea3;nh h&#x1eef;u t&#xec;nh c&#x1ee7;a Sapa. &#xa;&#xa;Chi&#x1ec1;u: Qu&#xfd; kh&#xe1;ch kh&#x1edf;i &#x111;&#x1ed9;ng b&#x1eb1;ng m&#x1ed9;t cu&#x1ed9;c leo l&#xea;n &#x111;&#x1ec9;nh H&#xe0;m R&#x1ed3;ng g&#x1ed3;m c&#xf3;: V&#x1b0;&#x1edd;n Lan 1-2, v&#x1b0;&#x1edd;n L&#xea;, v&#x1b0;&#x1edd;n T&#xe1;o M&#xe8;o, V&#x1b0;&#x1edd;n hoa Trung T&#xe2;m, H&#xf2;n &#x110;&#xe1; G&#xe3;y, C&#x1ed5;ng Tr&#x1edd;i, &#x110;&#x1ea7;u R&#x1ed3;ng, H&#xf2;n C&#xe1; S&#x1ea5;u, Khu Thi&#xea;n Th&#xe1;ch L&#xe2;m, H&#xf2;n Ph&#x1ead;t B&#xe0;, S&#xe2;n M&#xe2;y, th&#xe1;p truy&#x1ec1;n h&#xec;nh &#x2026;&#xa;&#xa;T&#x1ed1;i: &#x102;n t&#xf4;&#x301;i va&#x300; nghi&#x309; &#x111;&#xea;m ta&#x323;i Sa Pa. &#x110;&#x103;&#x323;c bi&#xea;&#x323;t va&#x300;o t&#xf4;&#x301;i th&#x1b0;&#x301; ba&#x309;y Quy&#x301; kha&#x301;ch co&#x301; th&#xea;&#x309; tham d&#x1b0;&#x323; phi&#xea;n Ch&#x1a1;&#x323; Ti&#x300;nh cu&#x309;a ng&#x1b0;&#x1a1;&#x300;i Dao &#x110;o&#x309; "/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="table4">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Ng&#xe0;y 4">
-                <Property name="tabTitle" type="java.lang.String" value="Ng&#xe0;y 4"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextArea" name="txtngay4">
-              <Properties>
-                <Property name="columns" type="int" value="20"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="0"/>
-                </Property>
-                <Property name="rows" type="int" value="5"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
-        <Container class="javax.swing.JScrollPane" name="table5">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Ng&#xe0;y 5">
-                <Property name="tabTitle" type="java.lang.String" value="Ng&#xe0;y 5"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextArea" name="txtngay5">
-              <Properties>
-                <Property name="columns" type="int" value="20"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Dialog" size="14" style="0"/>
-                </Property>
-                <Property name="rows" type="int" value="5"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -478,5 +346,40 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnnextActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JComboBox" name="txtngay">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="txtngayItemStateChanged"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtngayActionPerformed"/>
+        <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="txtngayPropertyChange"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="txtlichtrinh">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

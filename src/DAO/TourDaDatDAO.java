@@ -78,4 +78,14 @@ public class TourDaDatDAO {
         
         return DataProvider.getInstance().GetData("select giatour from tour where matour = '"+matour+"'");
     }
+    
+    public ResultSet timkiemTour(String matourdadat){
+        return DataProvider.getInstance().GetData("SELECT `madanhsach`, `tentour`, `ngaykhoihanh`, `ngaydattour`, `tenkhachhang`, `sodienthoai`, `gmail`,`songuoilon`,`sotreem`,`tongtien`, khachhang.makhachhang , tour.matour \n" +
+"FROM `tourdabook` INNER JOIN khachhang on tourdabook.makhachhang = khachhang.makhachhang INNER JOIN tour on tour.matour = tourdabook.matour where madanhsach like '%"+matourdadat+"%'");
+    }
+    
+    public ResultSet checkma(String makhachhang){
+        
+        return DataProvider.getInstance().GetData("select count(*) as 'songuoi' from khachhang where makhachhang = '"+makhachhang+"'");
+    }
 }

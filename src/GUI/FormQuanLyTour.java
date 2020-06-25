@@ -173,6 +173,12 @@ public class FormQuanLyTour extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("Tên tour :");
 
+        cbkhuyenmai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbkhuyenmaiActionPerformed(evt);
+            }
+        });
+
         btnExcel1.setText("Thêm từ Excel");
         btnExcel1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -375,7 +381,7 @@ public class FormQuanLyTour extends javax.swing.JFrame {
         getTxt();
         try {
             if (checkCapnhat()) {
-                Tour tour = new Tour(matour, tentour, diemxp, diadiem, diemdl, dichvu, tgtour, Integer.valueOf(giatour), Integer.parseInt(makm));
+                Tour tour = new Tour(matour, tentour, diemxp, diadiem, diemdl, dichvu, tgtour, Integer.valueOf(giatour), makm);
                 TourDAO tourda = new TourDAO();
                 tourda.Update(tour, matour);
                 hienThiBang();
@@ -471,7 +477,12 @@ public class FormQuanLyTour extends javax.swing.JFrame {
         int r = tblData.getSelectedRow();
         String[] rr = new String[9];
         for (int i = 0; i < 9; i++) {
-            rr[i] = tblData.getModel().getValueAt(r, i).toString();
+            try {
+                rr[i] = tblData.getModel().getValueAt(r, i).toString();
+            } catch (Exception e) {
+                cbkhuyenmai.setSelectedItem("KHONG");
+            }
+            
         }
         System.out.println(rr[7]);
         txtMatour.setText(rr[0]);
@@ -481,7 +492,8 @@ public class FormQuanLyTour extends javax.swing.JFrame {
         txtDiadiem.setText(rr[4]);
         txtDiemdulich.setText(rr[5]);
         txtDichvu.setText(rr[6]);
-        cbkhuyenmai.setSelectedItem(rr[8]);
+        if(rr[8]!=null)
+            cbkhuyenmai.setSelectedItem(rr[8]);
         txtGia.setText(rr[7]);
     }//GEN-LAST:event_tblDataMouseClicked
 
@@ -511,10 +523,13 @@ public class FormQuanLyTour extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnlichtrinhActionPerformed
 
+    private void cbkhuyenmaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbkhuyenmaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbkhuyenmaiActionPerformed
+
     void addCombobox() {
         ResultSet rs = dataConn.GetData("select makhuyenmai from khuyenmai");
         try {
-            cbkhuyenmai.addItem("");
             while (rs.next()) {
                 cbkhuyenmai.addItem(rs.getString("makhuyenmai"));
 
