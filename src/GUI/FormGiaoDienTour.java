@@ -113,7 +113,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
     public void getListour() {
         dstour.clear();
         GiaoDienTourBLL.getInstance().getListTourKhuyenMai(dstour);
-
+        
     }
 
     public void getListtourSearch() {
@@ -219,6 +219,7 @@ public class FormGiaoDienTour extends javax.swing.JFrame {
                     FormChiTietTour formChiTietTour = new FormChiTietTour();
                     formChiTietTour.getThongTinTour(dstour.get(vitri).getMatour());
                     formChiTietTour.setNgayKhoihanh(calendar.getDate());
+                    formChiTietTour.setPhantram(dstour.get(vitri).getKhuyenmai());
                     formChiTietTour.loadcombobox();
                     formChiTietTour.getLichTrinh();
                     formChiTietTour.hienthilistanh();

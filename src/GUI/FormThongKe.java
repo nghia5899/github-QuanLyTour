@@ -109,7 +109,7 @@ public class FormThongKe extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã Khách", "Tên Khách", "SĐT Khách", "Mã Tour", "Địa Điểm", "Ngày Khởi Hành", "Thời Gian Tour", "Tổng Tiền"
+                "Mã Khách", "Tên Khách", "Mã Tour", "Địa Điểm", "Ngày Khởi Hành", "Thời Gian Tour", "Mã Khuyến Mại", "Tổng Tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -327,7 +327,7 @@ public class FormThongKe extends javax.swing.JFrame {
             while (rs.next()) {
                 TongTien = rs.getInt("songuoilon") * rs.getInt("giatour") + rs.getInt("sotreem") * rs.getInt("giatour");
                 TongThu += TongTien;
-                Object[] s = {rs.getString("makhachhang"), rs.getString("tenkhachhang"), rs.getInt("sodienthoai"), rs.getString("matour"), rs.getString("diadiem"), rs.getString("ngaykhoihanh"), rs.getString("thoigiantour"), TongTien};
+                Object[] s = {rs.getString("makhachhang"), rs.getString("tenkhachhang"),  rs.getString("matour"), rs.getString("diadiem"), rs.getString("ngaykhoihanh"), rs.getString("thoigiantour"),rs.getString("makhuyenmai"), TongTien};
                 model.addRow(s);
             }
             txtTongThu.setText(Integer.toString(TongThu));

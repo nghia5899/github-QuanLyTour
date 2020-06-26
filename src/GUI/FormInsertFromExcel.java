@@ -160,7 +160,7 @@ public class FormInsertFromExcel extends javax.swing.JFrame {
     private void btnAddFileExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFileExcelActionPerformed
         // TODO add your handling code here:
         File excelFile;
-        String defaultPath = "D:\\JAVA\\BTL\\github-QuanLyTour\\Ngocdata\\fileExcel";
+        String defaultPath = "C:\\Users\\ADMIN\\Documents\\NetBeansProjects\\QuanLyTour\\Ngocdata\\fileExcel";
         FileInputStream excelFIS = null;
         BufferedInputStream excelBIS = null;
         XSSFWorkbook excelJTableImport = null;

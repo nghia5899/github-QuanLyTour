@@ -8,10 +8,12 @@ package GUI;
 import BLL.DangiKyTourBLL;
 import BLL.TourBLL;
 import BLL.TourDaDatBLL;
+import DAO.DataProvider;
 import DTO.KhachHang;
 import DTO.Tour;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,6 +36,15 @@ public class FormDangKyTour extends javax.swing.JFrame {
     int venguoilon=0;
     int vetreem=0;
     Tour tour;
+    int phantram=0;
+
+    public int getPhantram() {
+        return phantram;
+    }
+
+    public void setPhantram(int phantram) {
+        this.phantram = phantram;
+    }
     
     
     public Tour getTour() {
@@ -205,10 +216,11 @@ public class FormDangKyTour extends javax.swing.JFrame {
     }
     public int tinh(int nguoilon,int trem){
         int tongtien=0;
+        System.out.println(phantram);
         tongtien = nguoilon*tour.getGiatour()
                     +trem*tour.getGiatour()/2;
         
-        return tongtien;
+        return tongtien - tongtien*phantram/100;
     }
     public void tinhtongtien(){
         int tongtien = 0;
