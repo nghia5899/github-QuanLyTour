@@ -41,6 +41,15 @@ public class FormChiTietTour extends javax.swing.JFrame {
     int dau=0,cuoi=3;
     ArrayList<Anh> listanh = new ArrayList<>();
     ArrayList<LichTrinh> lichtrinh;
+    int phantram = 0;
+
+    public int getPhantram() {
+        return phantram;
+    }
+
+    public void setPhantram(int phantram) {
+        this.phantram = phantram;
+    }
     /**
      * Creates new form FormChiTietTour
      */
@@ -413,6 +422,7 @@ public class FormChiTietTour extends javax.swing.JFrame {
             dangKyTour.setTour(tour);
             dangKyTour.hienthithongtin(tour);
             dangKyTour.setNgayKhoihanh(txtngaykhoihanh.getDate());
+            dangKyTour.setPhantram(phantram);
             dangKyTour.tinhtongtien();
             dangKyTour.setVisible(true);
             setVisible(false);

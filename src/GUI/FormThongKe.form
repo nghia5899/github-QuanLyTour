@@ -192,11 +192,11 @@
               <Table columnCount="8" rowCount="0">
                 <Column editable="false" title="M&#xe3; Kh&#xe1;ch" type="java.lang.Object"/>
                 <Column editable="false" title="T&#xea;n Kh&#xe1;ch" type="java.lang.Object"/>
-                <Column editable="false" title="S&#x110;T Kh&#xe1;ch" type="java.lang.Object"/>
                 <Column editable="false" title="M&#xe3; Tour" type="java.lang.Object"/>
                 <Column editable="false" title="&#x110;&#x1ecb;a &#x110;i&#x1ec3;m" type="java.lang.Object"/>
                 <Column editable="false" title="Ng&#xe0;y Kh&#x1edf;i H&#xe0;nh" type="java.lang.Object"/>
                 <Column editable="false" title="Th&#x1edd;i Gian Tour" type="java.lang.Object"/>
+                <Column editable="false" title="M&#xe3; Khuy&#x1ebf;n M&#x1ea1;i" type="java.lang.Object"/>
                 <Column editable="false" title="T&#x1ed5;ng Ti&#x1ec1;n" type="java.lang.Object"/>
               </Table>
             </Property>

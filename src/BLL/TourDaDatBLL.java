@@ -94,4 +94,15 @@ public class TourDaDatBLL {
         }
         return songuoi;
     }
+    public int phantram(String matour){
+        int phantram = 0;
+        ResultSet data = TourDaDatDAO.getInstance().getphantram(matour);
+        try {
+            data.next();
+             phantram = data.getInt("phantram");
+        } catch (SQLException ex) {
+            Logger.getLogger(TourBLL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return phantram;
+    }
 }

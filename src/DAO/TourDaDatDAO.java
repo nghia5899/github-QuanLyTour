@@ -34,7 +34,11 @@ public class TourDaDatDAO {
         return DataProvider.getInstance().GetData("SELECT `madanhsach`, `tentour`, `ngaykhoihanh`, `ngaydattour`, `tenkhachhang`, `sodienthoai`, `gmail`,`songuoilon`,`sotreem`,`tongtien`, khachhang.makhachhang , tour.matour \n" +
 "FROM `tourdabook` INNER JOIN khachhang on tourdabook.makhachhang = khachhang.makhachhang INNER JOIN tour on tour.matour = tourdabook.matour ");
     }
-    
+    public ResultSet getphantram(String matour){
+        return DataProvider.getInstance().GetData("select phantram " +
+                                                    "from  tour INNER JOIN khuyenmai  "
+                                                    + "ON tour.makhuyenmai = khuyenmai.makhuyenmai where matour = '"+matour+"' ");
+    }
     public boolean CapNhatTourDaDat(TourDaDat tour){
         int result = 0,result1 = 0;
         String query = "Update tourdabook Set ngaydattour = '"+tour.getNgaydattour()+"', ngaykhoihanh = '"+tour.getNgaykhoihanh()+"', songuoilon = "+tour.getSonguoilon()+", sotreem = "+tour.getSotreem()+", tongtien = "+tour.getTongtien()+" where  madanhsach = '"+tour.getMadanhsach()+"'";

@@ -71,7 +71,7 @@ public class TourBLL {
             if(data.next()){
                 return new Tour(data.getString("matour"),data.getString("tentour"),data.getString("diemxuatphat"),data.getString("diadiem"),data.getString("diemdulich"),
                         data.getString("dichvu"),data.getString("thoigiantour"),data.getInt("giatour"),
-                        null,10,"");
+                        null,0,"");
             }
         } catch (SQLException ex) {
             Logger.getLogger(TourBLL.class.getName()).log(Level.SEVERE, null, ex);

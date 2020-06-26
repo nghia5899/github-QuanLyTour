@@ -39,6 +39,7 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
     int vitri;
     long giatour;
     int datim=0;
+    int phantram  = 0;
 
     public FormQuanLiDatTour(JButton btnSua, JButton btnTim, JButton btnXoa, JLabel jLabel1, JLabel jLabel2, JLabel jLabel4, JLabel jLabel5, JScrollPane jScrollPane1, JLabel lblID, JLabel lblID1, JLabel lblName, JLabel lblPhone, JTable tbquantidattour, JTextField txtGmail, JSpinner txtNguoiLon, JTextField txtTenKhach, JSpinner txtTreEm, JTextField txtmatourdat, JDateChooser txtngaykhoihanh, JTextField txtsdt) throws HeadlessException {
         this.btnSua = btnSua;
@@ -106,13 +107,13 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
             model.addRow(mang);
         }
     }
-
+    
     public int tinh(int nguoilon,int treem) {
         int tongtien = 0;
         
         tongtien = (int) (nguoilon * giatour + treem * giatour/2);
 
-        return tongtien;
+        return tongtien - tongtien*phantram/100;
     }
 
     public void tinhtongtien() {
@@ -506,6 +507,9 @@ public class FormQuanLiDatTour extends javax.swing.JFrame {
         tour.setMakhachhang(listtour.get(vitri).getMakhachhang());
 
         giatour = TourDaDatBLL.getInstance().getGiatour(listtour.get(vitri).getMatour());
+        
+        phantram = TourDaDatBLL.getInstance().phantram(listtour.get(vitri).getMatour());
+        System.out.println(phantram);
         tinhtongtien();
     }//GEN-LAST:event_tbquantidattourMouseClicked
 
